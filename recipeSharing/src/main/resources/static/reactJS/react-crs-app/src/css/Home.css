@@ -1,0 +1,81 @@
+/* Star Rating Css */
+button {
+    background-color: transparent;
+    border: orange;
+    outline: none;
+    cursor: pointer;
+  }
+  .on {
+    color: #000;
+  }
+  .off {
+    color: #ccc;
+  }
+
+/* ------------------------------------------ */
+
+/* Adjust the container width and center the content */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Style the section headers */
+h1 {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+/* Style the recipe items and create the responsive grid */
+.recipe-item {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.recipe-item img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.recipe-item h3 {
+  font-size: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/* Style the icons and comments */
+.recipe-item .d-flex {
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.recipe-item .heart-icon,
+.recipe-item .star-icon,
+.recipe-item .comment-icon {
+  font-size: 24px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+/* Media queries for responsive layout */
+/* @media screen and (max-width: 992px) {
+  .recipe-item {
+      margin-bottom: 20px;
+  }
+} */
+
+@media screen and (max-width: 500px) {
+  .column {
+    width: 100%;
+  }
+}
