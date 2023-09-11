@@ -19,7 +19,7 @@ public class RecipeSharingApplication {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/api/**")  // Adjust the mapping as needed
+                registry.addMapping("/api/**")  // Adjust the mapping as needed.
                         .allowedOrigins("http://localhost:3000")  // Allow requests from your React app
                         .allowedMethods("GET", "POST", "PUT", "DELETE")
                         .allowCredentials(true);
