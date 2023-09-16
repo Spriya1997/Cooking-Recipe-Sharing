@@ -1,0 +1,14 @@
+.navbar {
+  position: sticky;
+
+}
+div {
+  font-family: "Arial", sans-serif; 
+}
+.nav-item.dropdown:hover .dropdown-menu {
+  display: block;
+}
+::placeholder {
+  color: #e7e7e7;
+  opacity: 1; 
+}

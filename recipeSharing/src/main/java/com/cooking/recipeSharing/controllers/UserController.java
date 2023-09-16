@@ -1,5 +1,6 @@
 package com.cooking.recipeSharing.controllers;
 
+import java.util.*;
 import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,9 @@ import com.cooking.recipeSharing.services.*;
 public class UserController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private RecipeService recipeService;
 
     @PostMapping("/signUp")
     public UserProfileDto register(@RequestBody UserDto userDetails){
@@ -44,4 +48,5 @@ public class UserController {
     public UserDto validateOtpAndPwdByPhoneNumber(@PathVariable String phoneNumber, @PathVariable Long otp, @PathVariable String password){
         return userService.validateOtpAndPwdByPhoneNumber(phoneNumber, otp, password);
     }
+
 }

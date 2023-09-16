@@ -36,4 +36,8 @@ public class RecipeController {
         return recipeService.updateRecipeById(recipeDetails,recipeId);
     }
 
+    @GetMapping("listPublicRecipes")
+    public List<RecipeDto> getAllPublicPostRecipes(@PathVariable long userId){
+        return recipeService.getAllPublicPostRecipes(userId);
+    }
 }

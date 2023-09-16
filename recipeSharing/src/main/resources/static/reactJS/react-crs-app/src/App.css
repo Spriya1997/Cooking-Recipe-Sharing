@@ -1,3 +1,7 @@
+.navbar {
+  position: sticky;
+
+}
 div {
   font-family: "Arial", sans-serif; 
 }
@@ -7,4 +11,21 @@ div {
 ::placeholder {
   color: #e7e7e7;
   opacity: 1; 
+}
+.heart{
+  font-size: 35px;
+  color:rgb(182, 173, 173);
+  margin-top: 7px;
+   width: 70px;
+   outline: none;
+   text-transform: uppercase;
+   cursor: pointer;
+   font-weight: bold;
+   &:hover{
+       color: #ca166d;
+   }
+  &.active {
+   color: #ca166d
+   /* color when active */
+  }
 }

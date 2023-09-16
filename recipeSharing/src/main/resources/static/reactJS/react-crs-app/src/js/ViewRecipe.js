@@ -4,6 +4,8 @@ import { useUser } from '../UserContext.js';
 import Header from './Header.js';
 import { useNavigate } from 'react-router-dom';
 import '../App.css';
+import {GrEdit} from 'react-icons/gr';
+import {MdDelete} from 'react-icons/md';
 import '../css/Viewrecipe.css';
 
 function ViewRecipes() {
@@ -56,13 +58,17 @@ function ViewRecipes() {
                         <div className="recipe-card" key={recipe.id}>
                             <div className="recipe-card-navbar">
                                 <h3 className="recipe-title">{recipe.name}</h3>
-                                <div className="dropdown">
+                                <div className='float-right' style={{fontSize : "26px"}}>
+                                <GrEdit onClick={() => navigateEditTo(recipe.id)}Edit />
+                                <MdDelete className="ml-3" onClick={() => handleDeleteRecipe(recipe.id)} />
+                                </div>
+                                {/* <div className="dropdown">
                                     <button className="dropbtn">...</button>
                                     <div className="dropdown-content">
                                         <button onClick={() => navigateEditTo(recipe.id)}>Edit</button>
                                         <button onClick={() => handleDeleteRecipe(recipe.id)}>Delete</button>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                             {recipe.image ? <img src={`data:image/png;base64,${recipe.image}`} width="200" height="200" alt = ''/>: ''}{' '}
                             <p><b>Ingredients  </b>{recipe.ingredients}</p>

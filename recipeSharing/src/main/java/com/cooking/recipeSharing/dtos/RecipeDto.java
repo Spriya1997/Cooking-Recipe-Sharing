@@ -26,6 +26,7 @@ public class RecipeDto implements Serializable {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private String imageBase64String;
+    private boolean isFavorite;
 
     // to prevent null pointer exceptions doing "Sanity checking"
     public RecipeDto(RecipeEntity recipe) {
@@ -70,6 +71,57 @@ public class RecipeDto implements Serializable {
         }
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
-
     }
+
+    public RecipeDto(RecipeEntity recipe, boolean isFavorite) {
+        if(recipe.getRecipeId() != null){
+            this.id = recipe.getRecipeId();
+        } 
+        if (recipe.getRecipeName() != null) {
+            this.name = recipe.getRecipeName();
+        }
+        if(recipe.getRecipeImage() != null){
+             this.image = recipe.getRecipeImage();
+        }
+        if (recipe.getIngredients() != null) {
+            this.ingredients = recipe.getIngredients();
+        }
+        if (recipe.getInstructions() != null) {
+            this.instructions = recipe.getInstructions();
+        }
+        if (recipe.getServingSize() != null) {
+            this.servingSize = recipe.getServingSize();
+        }
+        if (recipe.getCookingTime() != null) {
+            this.cookingTime = recipe.getCookingTime();
+        }
+        if (recipe.getDifficultyLevel() != null) {
+            this.difficultyLevel = recipe.getDifficultyLevel();
+        }
+        if (recipe.getCuisines() != null) {
+            this.cuisines = recipe.getCuisines();
+        }
+        if (recipe.getDietaryPreferences() != null) {
+            this.dietaryPreferences = recipe.getDietaryPreferences();
+        }
+        if (recipe.getMealType() != null) {
+            this.mealType = recipe.getMealType();
+        }
+        if (recipe.getAdditionalNotes() != null) {
+            this.additionalNotes = recipe.getAdditionalNotes();
+        }
+        if(recipe.getVisibility() != null){
+            this.visibility = recipe.getVisibility();
+        }
+        //this.createdAt = LocalDateTime.now();
+        //this.updatedAt = LocalDateTime.now();
+        this.isFavorite = isFavorite;
+    }
+
+
+    // public RecipeDto(RecipeEntity recipeEntity, boolean isFavorite)
+    // {
+    //     var recipeDto = new RecipeDto(recipeEntity);
+    //     recipeDto.isFavorite = isFavorite;
+    // }
 }

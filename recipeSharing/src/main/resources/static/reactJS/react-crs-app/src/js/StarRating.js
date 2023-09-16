@@ -1,28 +1,26 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../css/Home.css';
 
-const StarRating = () => {
-    const [rating, setRating] = useState(0);
-    const [hover, setHover] = useState(0);
-    return (
-      <div className="star-rating">
-        {[...Array(5)].map((star, index) => {
-          index += 1;
-          return (
-            <button
-              type="button"
-              key={index}
-              className={index <= (hover || rating) ? "on" : "off"}
-              onClick={() => setRating(index)}
-              onMouseEnter={() => setHover(index)}
-              onMouseLeave={() => setHover(rating)}
-            >
-              <span className="rate-icon">&#9733;</span>
-            </button>
-          );
-        })}
-      </div>
-    );
-  };
+const StarRating = ({ initialRating }) => {
+  const orangeStar = "\u2605";
+  const greyStar = "\u2606";
+  return (
+    <div className="star-rating">
+      {[...Array(5)].map((_, index) => {
+        const starValue = index + 1;
+        const filled = starValue <= initialRating;
+
+        return (
+          <span
+            key={starValue}
+            className={filled ? "orange-star" : "grey-star"} style={{fontSize : "24px"}}
+          >
+            {filled ? orangeStar : greyStar}
+          </span>
+        );
+      })}
+    </div>
+  );
+};
 
 export default StarRating;
