@@ -19,7 +19,7 @@ function ViewRecipes() {
     
         if (confirmDelete) {
             try {
-                await axios.delete(baseUrl + userId + '/recipes/' + recipeId);
+                await axios.delete(baseUrl + '/recipes/' + recipeId);
                 // Update the recipes state after deletion
                 setRecipes(recipes.filter(recipe => recipe.id !== recipeId));
                 alert("Recipe deleted successfully!");
@@ -30,10 +30,7 @@ function ViewRecipes() {
         }
     };
     
-    console.log("view recipe " + userId);
     const [recipes, setRecipes] = useState([]); // an array for storing recipes
-
-    
     useEffect(() => {
         if (userId) {
             console.log(" view recipe useeffect userid:" + userId);

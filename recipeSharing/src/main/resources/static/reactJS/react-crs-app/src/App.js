@@ -18,7 +18,8 @@ import RecipeDetails from './js/RecipeDetails';
 import StarRating from './js/StarRating';
 import Comments from './js/Comments';
 import AddReview from './js/AddReview';
-
+import EditReview from './js/EditReview';
+import UserFavRecipes from './js/UserFavRecipes';
 const App = () => {
     return (
         <Router >
@@ -34,10 +35,12 @@ const App = () => {
                     <Route path="/viewRecipe" element={<ViewRecipes />}></Route>
                     <Route path="/editRecipe/:recipeId" element={<EditRecipe />}></Route>
                     <Route path="/recipeDetails/:recipeId" element={<RecipeDetails />}></Route>
+                    <Route path="/favoriteRecipes" element={<UserFavRecipes />}></Route>
 
                     <Route path="/starRating" element={<StarRating />}></Route>
                     <Route path="/comments" element={<Comments />}></Route>
                     <Route path="/addReview/:recipeId" element={<AddReview />}></Route>
+                    <Route path="/editReview/" element={<EditReview />}></Route>
 
                     <Route path="/notification" element={<Notify />}></Route>
 

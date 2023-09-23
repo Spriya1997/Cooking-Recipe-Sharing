@@ -63,5 +63,6 @@ public class UserRecipeActivityEntity {
         // this.setRecipe(recipe);
         this.setRatings(activity.getRatings());
         this.setComments(activity.getComments());
+        this.updatedTimestamp = LocalDateTime.now();
     }
 }

@@ -5,7 +5,6 @@ import com.cooking.recipeSharing.dtos.UserRecipeActivityDto;
 public interface UserRecipeActivityService {
     UserRecipeActivityDto shouldSetFavoriteRecipe(Long userId,  Long recipeId, boolean isFavorite);
     UserRecipeActivityDto setReviews(Long userId,  Long recipeId, UserRecipeActivityDto activity);
-    UserRecipeActivityDto getAllActivitiesOfUsersRecipe(Long userId,  Long recipeId, Long activityId);
+    UserRecipeActivityDto getAllActivitiesOfUsersRecipe(Long userId,  Long recipeId);
     UserRecipeActivityDto editUserRecipeReview(Long activityId, UserRecipeActivityDto activity);
-    
 }

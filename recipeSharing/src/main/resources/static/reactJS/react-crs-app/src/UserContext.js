@@ -16,7 +16,7 @@ export function UserProvider(userId) {
 
 export function useUser() {
   var test = useContext(UserContext);
-  console.log( "User context" + test + " " + Id);  
+  console.log( "User context " + test + " " + Id);  
   //return useContext(UserContext);
   return Id;
 }

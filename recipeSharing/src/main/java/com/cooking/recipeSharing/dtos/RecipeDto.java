@@ -28,6 +28,8 @@ public class RecipeDto implements Serializable {
     private String imageBase64String;
     private boolean isFavorite;
 
+    private UserActivity UserActivity;
+
     // to prevent null pointer exceptions doing "Sanity checking"
     public RecipeDto(RecipeEntity recipe) {
         if(recipe.getRecipeId() != null){
@@ -73,7 +75,7 @@ public class RecipeDto implements Serializable {
         this.updatedAt = LocalDateTime.now();
     }
 
-    public RecipeDto(RecipeEntity recipe, boolean isFavorite) {
+    public RecipeDto(RecipeEntity recipe, boolean isFavorite, UserActivity userActivity) {
         if(recipe.getRecipeId() != null){
             this.id = recipe.getRecipeId();
         } 
@@ -116,6 +118,7 @@ public class RecipeDto implements Serializable {
         //this.createdAt = LocalDateTime.now();
         //this.updatedAt = LocalDateTime.now();
         this.isFavorite = isFavorite;
+        this.UserActivity = userActivity;
     }
 
 

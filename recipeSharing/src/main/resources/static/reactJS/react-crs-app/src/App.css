@@ -12,9 +12,9 @@ div {
   color: #e7e7e7;
   opacity: 1; 
 }
-.heart{
+ .heart{
   font-size: 35px;
-  color:rgb(182, 173, 173);
+  color:rgb(182, 182, 173);
   margin-top: 7px;
    width: 70px;
    outline: none;
@@ -24,8 +24,26 @@ div {
    &:hover{
        color: #ca166d;
    }
-  &.active {
+  /* &.active {
    color: #ca166d
-   /* color when active */
+  } */
+} 
+.heartActive{
+  font-size: 35px;
+  color:#ca166d;
+  margin-top: 7px;
+   width: 70px;
+   outline: none;
+   text-transform: uppercase;
+   cursor: pointer;
+   font-weight: bold;
+  &:hover{
+       color: #ca166d;
+   }
+   .clearfix::before {
+    content: "";
   }
-}
+  /* &.active {
+   color: #ca166d
+  }  */
+} 

@@ -1,21 +1,34 @@
 import React from 'react';
 import '../css/Home.css';
+import {BsStarHalf, BsStarFill,BsStar} from "react-icons/bs";
 
 const StarRating = ({ initialRating }) => {
-  const orangeStar = "\u2605";
-  const greyStar = "\u2606";
+  const orangeStar = <BsStarFill style ={{color : 'orange' }}/>;
+  const halfStar = <BsStarHalf style ={{color : 'orange' }}/>;
+  const greyStar = <BsStar style ={{color : 'grey' }}/>;
+
+  // Calculate the number of full stars and whether to show a half star
+  const fullStars = Math.floor(initialRating);
+  const showHalfStar = initialRating - fullStars >= 0.5;
+
   return (
     <div className="star-rating">
       {[...Array(5)].map((_, index) => {
         const starValue = index + 1;
-        const filled = starValue <= initialRating;
+        let starIcon = greyStar;
+
+        if (starValue <= fullStars) {
+          starIcon = orangeStar;
+        } else if (showHalfStar && starValue === fullStars + 1) {
+          starIcon = halfStar;
+        }
 
         return (
           <span
             key={starValue}
-            className={filled ? "orange-star" : "grey-star"} style={{fontSize : "24px"}}
+            style={{ fontSize: "24px" }}
           >
-            {filled ? orangeStar : greyStar}
+          {starIcon}{''}
           </span>
         );
       })}

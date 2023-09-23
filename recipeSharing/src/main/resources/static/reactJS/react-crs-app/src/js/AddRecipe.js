@@ -34,7 +34,7 @@ function AddRecipe() {
             //console.log("if userId present userid:" + userId);
             // Post recipe
             try {
-                const response = await axios.post(baseUrl + userId + '/recipes', { name, ingredients, instructions, servingSize, cookingTime, difficultyLevel, cuisines, dietaryPreferences, mealType, additionalNotes, visibility, imageBase64String}, { withCredentials: true });
+                const response = await axios.post(baseUrl + userId + '/recipes', { name, ingredients, instructions, servingSize, cookingTime, difficultyLevel, cuisines, dietaryPreferences, mealType, additionalNotes, visibility, imageBase64String }, { withCredentials: true });
                 if (response.status === 200) {
                     console.log("successfully created recipe");
                     navigate('/home');
@@ -49,8 +49,7 @@ function AddRecipe() {
     const handleImageChange = (event) => {
         const imageFile = event.target.files[0];
         console.log("set debugger");
-        if(imageFile)
-        {
+        if (imageFile) {
             // Read the selected file as a Blob
             const reader = new FileReader();
             reader.readAsDataURL(imageFile);
@@ -98,6 +97,16 @@ function AddRecipe() {
                     </Col>
                 </FormGroup>
                 <FormGroup row>
+                <Label sm={2}><b>DifficultyLevel</b></Label>
+                    <Col sm={8}>
+                    <div onChange={this.onChangeValue}>
+                        <input type="radio" value="Male" name="gender" /> Male
+                        <input type="radio" value="Female" name="gender" /> Female
+                        <input type="radio" value="Other" name="gender" /> Other
+                    </div>
+                    </Col>
+                </FormGroup>
+                <FormGroup row>
                     <Label sm={2}><b>DifficultyLevel</b></Label>
                     <Col sm={4}>
                         <Input type="select" onChange={(e) => setDifficultyLevel(e.target.value)}>
@@ -118,7 +127,7 @@ function AddRecipe() {
                 <FormGroup row>
                     <Label sm={2}><b>Dietary Preferences</b></Label>
                     <Col sm={4}>
-                        <Input type="select"  onChange={(e) => setDietaryPreferences(e.target.value)}>
+                        <Input type="select" onChange={(e) => setDietaryPreferences(e.target.value)}>
                             <option>Select</option>
                             <option>Dairy-Free</option>
                             <option>Gluten-Free</option>
@@ -160,7 +169,7 @@ function AddRecipe() {
                     <Label sm={2}><b>Meal Type</b></Label>
                     <Col sm={4}>
                         <Input type="select" onChange={(e) => setMealType(e.target.value)}>
-                        <option value="Appetizer">Appetizer</option>
+                            <option value="Appetizer">Appetizer</option>
                             <option>Appetizer</option>
                             <option>Breakfast</option>
                             <option>Brunch</option>
@@ -180,7 +189,7 @@ function AddRecipe() {
                 </FormGroup> <FormGroup row>
                     <Label sm={2}><b>Visibility</b></Label>
                     <Col sm={4}>
-                        <Input type="select"  onChange={(e) => setVisibility(e.target.value)} required>
+                        <Input type="select" onChange={(e) => setVisibility(e.target.value)} required>
                             <option>Select</option>
                             <option>Public</option>
                             <option>Private</option>
@@ -196,7 +205,7 @@ function AddRecipe() {
                 <FormGroup row>
                     <Label sm={2}><b>File</b></Label>
                     <Col sm={3}>
-                        <Input type="file" name="file" accept="image/*" onChange={handleImageChange}/>
+                        <Input type="file" name="file" accept="image/*" onChange={handleImageChange} />
                         <FormText color="muted">
                             Add recipe image
                         </FormText>

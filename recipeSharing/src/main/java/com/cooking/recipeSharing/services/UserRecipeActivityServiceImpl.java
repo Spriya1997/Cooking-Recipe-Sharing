@@ -23,84 +23,75 @@ public class UserRecipeActivityServiceImpl implements UserRecipeActivityService 
     private UserRecipeActivityRepo activityRepo;
 
     // private void verifyUserIdRecipeId(Long userId, Long recipeId){
-    //     var user = userRepo.findById(userId);
-    //     var recipe = recipeRepo.findById(recipeId);
-    //     if(!user.isPresent() || !recipe.isPresent()){
-    //         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid userId or recipeId.");
-    //     }
+    // var user = userRepo.findById(userId);
+    // var recipe = recipeRepo.findById(recipeId);
+    // if(!user.isPresent() || !recipe.isPresent()){
+    // throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid userId or
+    // recipeId.");
+    // }
     // }
 
     @Override
     public UserRecipeActivityDto shouldSetFavoriteRecipe(Long userId, Long recipeId, boolean isFavorite) {
         var user = userRepo.findById(userId);
         var recipe = recipeRepo.findById(recipeId);
-        if(!user.isPresent() || !recipe.isPresent()){
+        if (!user.isPresent() || !recipe.isPresent()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid userId or recipeId.");
         }
         var activity = activityRepo.findByUserAndRecipe(user.get(), recipe.get());
         UserRecipeActivityEntity activityEntity = null;
-        if(activity.size() == 0)
-        {
+        if (activity.size() == 0) {
             activityEntity = new UserRecipeActivityEntity(user.get(), recipe.get(), isFavorite);
-        }
-        else
-        {
+        } else {
             activityEntity = activity.get(0);
             activityEntity.setFavorite(isFavorite);
         }
         activityRepo.saveAndFlush(activityEntity);
         return new UserRecipeActivityDto(activityEntity);
     }
-
-
+    // add or edit particular review
     @Override
     public UserRecipeActivityDto setReviews(Long userId, Long recipeId, UserRecipeActivityDto reviews) {
         var user = userRepo.findById(userId);
         var recipe = recipeRepo.findById(recipeId);
-        if(!user.isPresent() || !recipe.isPresent()){
+        if (!user.isPresent() || !recipe.isPresent()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid userId or recipeId.");
         }
-        
+
         var activity = activityRepo.findByUserAndRecipe(user.get(), recipe.get());
         UserRecipeActivityEntity activityEntity = null;
-        if(activity.size() == 0)
-        {
+        if (activity.size() == 0) {
             activityEntity = new UserRecipeActivityEntity(user.get(), recipe.get(), reviews);
-        }
-        else
-        {
+        } else {
             activityEntity = activity.get(0);
             activityEntity.SetActivity(reviews);
         }
         activityRepo.saveAndFlush(activityEntity);
         return new UserRecipeActivityDto(activityEntity);
     }
-
-
+    
+    // get activity details of particular user by recipe id 
     @Override
-    public UserRecipeActivityDto getAllActivitiesOfUsersRecipe(Long userId, Long recipeId,
-            Long activityId) {
+    public UserRecipeActivityDto getAllActivitiesOfUsersRecipe(Long userId, Long recipeId) {
         var user = userRepo.findById(userId);
         var recipe = recipeRepo.findById(recipeId);
-        var activity = activityRepo.findById(activityId);
+        var activity = activityRepo.findByUserAndRecipe(user.get(),recipe.get());
 
-        if(!user.isPresent() || !recipe.isPresent()){
+        if (!user.isPresent() || !recipe.isPresent()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid userId or recipeId.");
+        } else if (activity.isEmpty()) {
+            return null;
         }
-        else if(!activity.isPresent()){
-             return null;
-        }
-        Optional<UserRecipeActivityEntity> act = activity;
-        return new UserRecipeActivityDto(act.get());
+        List<UserRecipeActivityEntity> act = activity;
+        return new UserRecipeActivityDto(act.get(0));
 
     }
-
 
     @Override
     public UserRecipeActivityDto editUserRecipeReview(Long activityId, UserRecipeActivityDto reviews) {
         var activity = activityRepo.findById(activityId);
 
-        if(!activity.isPresent()){
+        if (!activity.isPresent()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid activity Id.");
         }
         var activityDetails = activity.get();
@@ -108,5 +99,4 @@ public class UserRecipeActivityServiceImpl implements UserRecipeActivityService 
         activityRepo.saveAndFlush(activityDetails);
         return new UserRecipeActivityDto(activityDetails);
     }
-    
 }

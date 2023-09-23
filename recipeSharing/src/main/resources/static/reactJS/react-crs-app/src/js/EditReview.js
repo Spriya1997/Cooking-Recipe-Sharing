@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useUser } from '../UserContext.js';
 import { useParams } from 'react-router-dom';
@@ -9,43 +9,51 @@ import '../css/StarChooser.css';
 import '../css/Register.css';
 
 
-function AddReview(props) {
+function EditReview(props) {
 
   var userId = useUser();
   const { recipeId } = useParams();
+  const [reviews, setReviews] = useState({
+    ratings :'',
+    comments : ''
+  });
   const [ratings, setStar] = useState(0);
   const [comments, setComments] = useState('');
-  const [showAlert, setShowAlert] = useState(false);
-
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [showFailureMessage, setShowFailureMessage] = useState(false);
   const baseUrl = 'http://localhost:8080/api/users/'
 
-  const toggleAddReview = () => {
-    props.setModalAddReview(false);
+  const toggleEditReview = () => {
+    props.setModalEditReview(false);
   }
+  useEffect(() => {
+    if (recipeId) {
+        // Make a request to fetch user recipe review details
+        axios.get(baseUrl + userId + '/recipes/' + recipeId + '/getActivities')
+            .then(response => {
+                setReviews(response.data);
+                console.log("reviews for edit : "+ response.data);
+            })
+            .catch(error => {
+                console.error('Error fetching reviews :', error);
+            });
+    }
+}, [recipeId]);
+console.log("ratings " + reviews.ratings + "comments : "+ reviews.comments);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("control is tranferred in addReview");
-    console.log("user id handlesubmit is:" + baseUrl + userId + '/recipes/' + recipeId + '/setReviews');
-    
-    if(ratings === 0 || ratings === null){
-      console.log(ratings);
-      setShowAlert(true);
-      return;
-    }
-     
+    console.log("control is tranferred in editReview");
+    // console.log("user id handlesubmit is:" + baseUrl + userId + '/recipes/' + recipeId + '/setReviews');
+    console.log("ratings "+ ratings +" comments : "+ comments);
     if (userId && recipeId) {
-      setShowAlert(false);
       try {
         const response = await axios.post(baseUrl + userId + '/recipes/' + recipeId + '/setReviews', { ratings, comments }, { withCredentials: true });
 
         if (response.status === 200) {
-          console.log("successfully added reviews");
-          console.log("ratings "+ ratings +" comments : "+ comments);
-          setShowSuccessMessage('Reviews added successfully');
-          toggleAddReview();
+          console.log("successfully updated reviews");
+          toggleEditReview();
+          setShowSuccessMessage('reviews updated successfully');
           //setTimeout(() => { setShowMessage('Comments added successfully'); }, 3000);
         }
       }
@@ -60,27 +68,26 @@ function AddReview(props) {
     <>
       <Form onSubmit={handleSubmit} className="sign-form">
         <FormGroup row>
-          <Label sm={3}> <b>Ratings</b></Label>
+          <Label sm={3}> <b>Rating</b></Label>
           <Col sm={5}>
             <div className="container">
-              <StarChooser stars={ratings} _onSubmit={setStar} />
+              <StarChooser defaultValue={reviews.ratings} stars={ratings} _onSubmit={setStar} />
               <Commender rate={ratings} />
             </div>
-            {showAlert && <div style={{ color: 'red', fontSize: 13 }}>Rating is required </div>}
           </Col>
         </FormGroup>
         <FormGroup row>
           <Label sm={3}> <b>Comments</b></Label>
           <Col sm={6}>
-            <textarea rows={4} cols={30} onChange={(e) => setComments(e.target.value)} placeholder="What did you like or dislike?" />
+            <textarea rows={4} cols={30} defaultValue={reviews.comments} onChange={(e) => setComments(e.target.value)} placeholder="What did you like or dislike?" />
           </Col>
         </FormGroup>
         <footer>
           <FormGroup>
             <Col sm={{ size: 5, offset: 3 }}>
               <Button color="secondary" style={{ display: 'block', width: 90, height: 40, padding: 10 }} className="btn btn-secondary float-right">Submit</Button><br></br>
-              {showSuccessMessage && <div style={{ color: 'green', fontSize: 13 }}>Reviews added successfully </div>}
-              {showFailureMessage && <div style={{ color: 'red', fontSize: 13 }}>Error in adding reviews </div>}
+              {showSuccessMessage && <div style={{ color: 'green', fontSize: 13 }}>Reviews updated successfully </div>}
+              {showFailureMessage && <div style={{ color: 'red', fontSize: 13 }}>Error in updating reviews </div>}
             </Col>
           </FormGroup>
         </footer>
@@ -90,4 +97,4 @@ function AddReview(props) {
 };
 
 
-export default AddReview;
+export default EditReview;

@@ -8,36 +8,49 @@ import com.cooking.recipeSharing.dtos.*;
 import com.cooking.recipeSharing.services.*;
 
 @RestController
-@RequestMapping("api/users/{userId}/recipes")
+@RequestMapping("api/users")
 
 public class RecipeController {
     
     @Autowired
     private RecipeService recipeService;
 
-    @PostMapping
+    @PostMapping("{userId}/recipes")
     public void addRecipe(@RequestBody RecipeDto recipeDto, @PathVariable Long userId) throws IOException{
         recipeDto.setImage(Base64.getDecoder().decode(recipeDto.getImageBase64String()));
         recipeService.createNewRecipe(recipeDto, userId);
     }
 
-    @GetMapping
-    public List<RecipeDto> ListUserRecipes(@PathVariable Long userId){
+    @GetMapping("{userId}/recipes")
+    public List<RecipeDto> listAllUserRecipes(@PathVariable Long userId){
         return recipeService.getAllRecipesByUserId(userId);
     }
 
-    @DeleteMapping("{recipeId}")
-    public void deleteRecipeByRecipeId(@PathVariable Long recipeId){
-        recipeService.deleteRecipeById(recipeId);
-    }
-
-    @PutMapping("{recipeId}")
-    public RecipeDto updateRecipeById(@RequestBody RecipeDto recipeDetails, @PathVariable Long recipeId){
-        return recipeService.updateRecipeById(recipeDetails,recipeId);
-    }
-
-    @GetMapping("listPublicRecipes")
+    @GetMapping("{userId}/recipes/listPublicRecipes")
     public List<RecipeDto> getAllPublicPostRecipes(@PathVariable long userId){
         return recipeService.getAllPublicPostRecipes(userId);
     }
+
+    @GetMapping("recipes/{recipeId}")
+    public RecipeDto getRecipe(@PathVariable Long recipeId) {
+        //@RequestParam boolean shouldGetUserActivities
+        return recipeService.getRecipeById(recipeId);
+    }
+
+    @GetMapping("{userId}/userFavoriteRecipes")
+    public List<RecipeDto> getUserFavoriteRecipes(@PathVariable Long userId){
+        return recipeService.getUserFavoriteRecipes(userId);
+    }
+
+    @DeleteMapping("recipes/{recipeId}")
+    public void deleteRecipeById(@PathVariable Long recipeId) {
+        recipeService.deleteRecipeById(recipeId);
+    }
+
+    // Fetching all reviews of recipe by recipeId
+    @GetMapping("recipes/{recipeId}/reviews")
+    public List<RecipeUserActivity> getRecipeUserActivity(@PathVariable Long recipeId) {
+        return recipeService.getRecipeUserActivity(recipeId);
+    }
+
 }

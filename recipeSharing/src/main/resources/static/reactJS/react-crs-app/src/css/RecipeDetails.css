@@ -1,0 +1,133 @@
+/* RecipeDetails.css */
+
+/* Container for the entire recipe details */
+.recipe-details111-container {
+    max-width: 990px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Recipe name styling */
+.recipe-name112 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Recipe image styling */
+.recipeDetails-image113 img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+/* Recipe details section styling */
+.recipe-details114 {
+    font-size: 16px;
+    color: #555;
+}
+
+/* Heart icon styling */
+.favoriteIcon115 {
+    font-size: 30px;
+    color: #ca166d;
+    margin-right: 0rem;
+    vertical-align: middle;
+}
+
+/* Styling for "Likes" text */
+.ml-0 {
+    margin-right: 0.5rem;
+    vertical-align: middle;
+}
+
+/* Styling for rating icon */
+.star-rating {
+    vertical-align: middle;
+    margin-bottom: 8px;
+}
+
+/* Styling for "Reviews" text */
+.ml-3 {
+    margin-right: 0.5rem;
+    vertical-align: middle;
+}
+
+/* Styling for comment icon */
+.fa-comment {
+    font-size: 24px;
+    color: #ca166d;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+}
+
+/* Button styling (Add Review button) */
+.btn-info {
+    background-color: #3498db;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-info:hover {
+    background-color: #2980b9;
+}
+
+/* Modal styling */
+.modal-dialog {
+    max-width: 400px;
+    margin: 50px auto;
+}
+
+/* Modal header styling */
+.modal-header {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Modal body styling */
+.modal-body {
+    font-size: 16px;
+}
+
+/* Container for reviews */
+.reviews-section-container {
+    padding: 20px;
+    margin-top: 20px; /* Add margin to separate recipe and reviews */
+}
+
+/* Styling for individual review boxes */
+.review-box {
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+/* Styling for the user's name in the review */
+.review-username {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+/* Styling for ratings */
+.review-ratings {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+/* Styling for the comment text */
+.review-comment {
+    color: #555;
+    margin-bottom: 10px;
+}

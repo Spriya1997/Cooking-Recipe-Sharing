@@ -1,10 +1,8 @@
 package com.cooking.recipeSharing.model;
 
 import java.time.LocalDateTime;
-
 import com.cooking.recipeSharing.dtos.*;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,7 +17,7 @@ public class RecipeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long recipeId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonBackReference
     @JoinColumn(name = "userId")
     private UserEntity user;
@@ -53,6 +51,7 @@ public class RecipeEntity {
     
     @Enumerated(value = EnumType.STRING)
     private RecipeVisibility visibility; // public or private
+
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     // private String reference; 

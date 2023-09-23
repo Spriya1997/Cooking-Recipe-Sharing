@@ -15,12 +15,12 @@ function UserProfile() {
     country: '',
     bio: ''
   });
-  const baseUrl = 'http://localhost:8080/api/users'
+  const baseUrl = 'http://localhost:8080/api/users/'
   useEffect(() => {
     if (userId) {
       console.log("userid:" + userId);
       // Make a request to fetch user profile details
-      axios.get(baseUrl + '/userProfile/' + userId)
+      axios.get(baseUrl + userId)
         .then(response => {
           setUserProfile(response.data);
         })
@@ -29,6 +29,23 @@ function UserProfile() {
         });
     }
   }, [userId]);
+
+  const handleDeleteRecipe = async () => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this recipe?");
+
+    if (confirmDelete) {
+        try {
+            await axios.delete(baseUrl + userId);
+            // // Update the recipes state after deletion
+            // setRecipes(recipes.filter(user => userId.id !== userId));
+            // alert("Recipe deleted successfully!");
+        } catch (error) {
+            console.error('Error deleting user account:', error);
+            alert("Error deleting user account");
+        }
+    }
+};
+
   return (
     <div style={{ fontFamily: "Verdana, sans-serif" }}>
       <div>
@@ -44,7 +61,7 @@ function UserProfile() {
         <p>Country : {userProfile.country}</p>
         <p>Bio : {userProfile.bio}</p>
         {' '}
-        <Button color="danger"> Delete Profile</Button>
+        <Button color="danger" onClick={() => handleDeleteRecipe()}> Delete Profile</Button>
       </div>
     </div>
   );
