@@ -31,10 +31,10 @@ public class RecipeController {
         return recipeService.getAllPublicPostRecipes(userId);
     }
 
-    @GetMapping("recipes/{recipeId}")
-    public RecipeDto getRecipe(@PathVariable Long recipeId) {
+    @GetMapping("{userId}/recipes/{recipeId}")
+    public RecipeDto getRecipe(@PathVariable long userId, @PathVariable Long recipeId) {
         //@RequestParam boolean shouldGetUserActivities
-        return recipeService.getRecipeById(recipeId);
+        return recipeService.getRecipeById(userId,recipeId);
     }
 
     @GetMapping("{userId}/userFavoriteRecipes")

@@ -10,7 +10,7 @@ import com.cooking.recipeSharing.dtos.RecipeUserActivity;
 public interface RecipeService {
      void createNewRecipe(RecipeDto recipeDto, Long userId); 
      List<RecipeDto> getAllRecipesByUserId(Long userId);
-     RecipeDto getRecipeById(Long recipeId);
+     RecipeDto getRecipeById(Long userId, Long recipeId);
      void deleteRecipeById(Long recipeId);
      RecipeDto updateRecipeById(RecipeDto recipeDto, Long recipeId);
 

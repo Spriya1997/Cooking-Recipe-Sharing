@@ -47,6 +47,11 @@ public class UserController {
     public UserDto validateOtpAndPwdByPhoneNumber(@PathVariable String phoneNumber, @PathVariable Long otp, @PathVariable String password){
         return userService.validateOtpAndPwdByPhoneNumber(phoneNumber, otp, password);
     }
+    //Validate only OTP
+    @PostMapping("phoneNumbers/{phoneNumber}/{otp}")
+    public void validateOTP(@PathVariable String phoneNumber, @PathVariable Long otp){
+        userService.validateOTP(phoneNumber, otp);
+    }
 
     @DeleteMapping("{userId}")
     public void deleteUserAccount(@PathVariable Long userId){

@@ -9,7 +9,8 @@ import lombok.*;
 @Data
 public class RecipeUserActivity {
     public String comment;
-    public int ratings;
+    public Integer ratings;
     public String userName;
     public LocalDateTime updatedTime;
+    public Long userId;
 }

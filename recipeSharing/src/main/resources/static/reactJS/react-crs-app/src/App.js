@@ -40,7 +40,7 @@ const App = () => {
                     <Route path="/starRating" element={<StarRating />}></Route>
                     <Route path="/comments" element={<Comments />}></Route>
                     <Route path="/addReview/:recipeId" element={<AddReview />}></Route>
-                    <Route path="/editReview/" element={<EditReview />}></Route>
+                    <Route path="/editReview" element={<EditReview />}></Route>
 
                     <Route path="/notification" element={<Notify />}></Route>
 

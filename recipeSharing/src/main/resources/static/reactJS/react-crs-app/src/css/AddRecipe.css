@@ -1,0 +1,25 @@
+
+.add-recipe-container {
+  margin: 20px auto;
+    max-width: 960px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    border: 1px solid #ccc;
+  }
+  
+  .form-post-recipe-title {
+    font-size: 24px;
+    text-align: left;
+  }
+  
+  .form-post-recipe-caption {
+    font-size: 16px;
+    text-align: left;
+    margin-bottom: 20px;
+    color:rgb(39, 74, 149);
+    font-weight: 600;
+  }
+  

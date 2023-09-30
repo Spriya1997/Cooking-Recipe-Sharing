@@ -22,20 +22,20 @@ function AddReview(props) {
   const baseUrl = 'http://localhost:8080/api/users/'
 
   const toggleAddReview = () => {
-    props.setModalAddReview(false);
+    props.toggleAddReview();
   }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log("control is tranferred in addReview");
     console.log("user id handlesubmit is:" + baseUrl + userId + '/recipes/' + recipeId + '/setReviews');
-    
-    if(ratings === 0 || ratings === null){
+
+    if (ratings === 0 || ratings === null) {
       console.log(ratings);
       setShowAlert(true);
       return;
     }
-     
+
     if (userId && recipeId) {
       setShowAlert(false);
       try {
@@ -43,8 +43,7 @@ function AddReview(props) {
 
         if (response.status === 200) {
           console.log("successfully added reviews");
-          console.log("ratings "+ ratings +" comments : "+ comments);
-          setShowSuccessMessage('Reviews added successfully');
+          console.log("ratings " + ratings + " comments : " + comments);
           toggleAddReview();
           //setTimeout(() => { setShowMessage('Comments added successfully'); }, 3000);
         }
@@ -60,20 +59,20 @@ function AddReview(props) {
     <>
       <Form onSubmit={handleSubmit} className="sign-form">
         <FormGroup row>
-          <Label sm={3}> <b>Ratings</b></Label>
-          <Col sm={5}>
-            <div className="container">
-              <StarChooser stars={ratings} _onSubmit={setStar} />
-              <Commender rate={ratings} />
-            </div>
-            {showAlert && <div style={{ color: 'red', fontSize: 13 }}>Rating is required </div>}
-          </Col>
+          <Label sm={3} className='mr-2'> <b>Ratings</b></Label>
+        </FormGroup>
+        <FormGroup>
+          <div>
+            <StarChooser stars={ratings} _onSubmit={setStar} />
+            <Commender rate={ratings} />
+          </div>
+          {showAlert && <div style={{ color: 'red', fontSize: 13 }}>Rating is required </div>}
         </FormGroup>
         <FormGroup row>
-          <Label sm={3}> <b>Comments</b></Label>
-          <Col sm={6}>
-            <textarea rows={4} cols={30} onChange={(e) => setComments(e.target.value)} placeholder="What did you like or dislike?" />
-          </Col>
+          <Label sm={3} className='mr-2'> <b>Comments</b></Label>
+        </FormGroup>
+        <FormGroup>
+          <textarea className = "ml-5" rows={4} cols={30} onChange={(e) => setComments(e.target.value)} placeholder="What did you like or dislike?" />
         </FormGroup>
         <footer>
           <FormGroup>

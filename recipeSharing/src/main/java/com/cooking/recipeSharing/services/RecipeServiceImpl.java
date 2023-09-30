@@ -24,6 +24,19 @@ public class RecipeServiceImpl implements RecipeService {
     private UserRepo userRepo;
     @Autowired
     private UserRecipeActivityRepo activityRepo;
+    @Autowired
+    private UserRecipeActivityServiceImpl userRecipeActivityServiceImpl;
+
+    private void verifyUserIdRecipeId(Long userId, Long recipeId) {
+        var user = userRepo.findById(userId);
+        var recipe = recipeRepo.findById(recipeId);
+        if (!user.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid userId");
+        }
+        if (!recipe.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid recipeId");
+        }
+    }
 
     @Override
     public void createNewRecipe(RecipeDto recipeDto, Long userId) {
@@ -48,14 +61,15 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public RecipeDto getRecipeById(Long recipeId) {
-        Optional<RecipeEntity> recipe = recipeRepo.findById(recipeId);
-        if (!recipe.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid recipe Id");
-        }
+    public RecipeDto getRecipeById(Long userId, Long recipeId) {
+        verifyUserIdRecipeId(userId, recipeId);
+        var recipe = recipeRepo.findById(recipeId);
         UserActivity userActivity = getUserActivityByRecipe(recipe.get());
-        // Add isFavorite
-        return new RecipeDto(recipe.get(), false, userActivity);
+        // Fetching isFavorite
+        UserRecipeActivityDto activity = userRecipeActivityServiceImpl.getAllActivitiesOfUsersRecipe(userId, recipeId);
+
+        Boolean isFavoriteStatus = activity.getIsFavorite();
+        return new RecipeDto(recipe.get(), isFavoriteStatus, userActivity);
     }
 
     @Override
@@ -99,9 +113,10 @@ public class RecipeServiceImpl implements RecipeService {
 
     private UserActivity getUserActivityByRecipe(RecipeEntity recipeEntity) {
         var activities = activityRepo.findByRecipe(recipeEntity);
-        long favoritesCount = activities.stream().filter(activity -> activity.isFavorite()).count();
+        long favoritesCount = activities.stream().filter(activity -> activity.getIsFavorite()).count();
         long commentsCount = activities.stream().filter(activity -> activity.getComments() != null).count();
-        double averageRating = activities.stream().mapToDouble(activity -> activity.getRatings()).average().orElse(0.0);
+        double averageRating = activities.stream().mapToDouble(activity -> activity.getRatings() == null ? 0 : activity.getRatings()).average().orElse(0.0);
+        //double averageRating = activities.stream().map(UserRecipeActivityEntity::getRatings).filter(Objects::nonNull).mapToDouble(Integer::intValue).average().orElse(0.0);
 
         return new UserActivity(favoritesCount, commentsCount, averageRating);
     }
@@ -114,7 +129,7 @@ public class RecipeServiceImpl implements RecipeService {
         }
         List<RecipeEntity> recipeList = recipeRepo.findByVisibility(RecipeVisibility.Public);
         var userFavoriteRecipe = activityRepo.findByUserAndIsFavorite(user.get(), true);
-    
+
         // set of favorite recipe id's for user's favorite recipes
         Set<Long> favoriteRecipeIds = userFavoriteRecipe.stream()
                 .map(favoriteList -> favoriteList.getRecipe().getRecipeId())
@@ -122,9 +137,11 @@ public class RecipeServiceImpl implements RecipeService {
 
         if (!recipeList.isEmpty()) {
             return recipeList.stream()
-            .filter(recipeEntity -> favoriteRecipeIds.contains(recipeEntity.getRecipeId()))
-            .map(recipeEntity -> {return new RecipeDto(recipeEntity, true, null);})
-            .collect(Collectors.toList());
+                    .filter(recipeEntity -> favoriteRecipeIds.contains(recipeEntity.getRecipeId()))
+                    .map(recipeEntity -> {
+                        return new RecipeDto(recipeEntity, true, null);
+                    })
+                    .collect(Collectors.toList());
         }
         return Collections.emptyList();
 
@@ -136,15 +153,14 @@ public class RecipeServiceImpl implements RecipeService {
         if (!recipe.isPresent()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid recipe Id");
         }
-        List<RecipeUserActivity> recipeUserActivities = 
-                activityRepo.findByRecipe(recipe.get()).stream().map(
-                    entity -> {
-                        var userEntity = entity.getUser();
-                        var fullName = userEntity.getFirstName() + " " + userEntity.getLastName();
-                        return new RecipeUserActivity(entity.getComments(), entity.getRatings(), fullName,null);
-                        
-                    }).collect(Collectors.toList());
+        List<RecipeUserActivity> recipeUserActivities = activityRepo.findByRecipe(recipe.get()).stream().map(
+                entity -> {
+                    var userEntity = entity.getUser();
+                    var fullName = userEntity.getFirstName() + " " + userEntity.getLastName();
+                    return new RecipeUserActivity(entity.getComments(), entity.getRatings(), fullName, entity.getUpdatedTimestamp(), entity.getUser().getUserId());
 
-                return recipeUserActivities;
+                }).collect(Collectors.toList());
+
+        return recipeUserActivities;
     }
 }

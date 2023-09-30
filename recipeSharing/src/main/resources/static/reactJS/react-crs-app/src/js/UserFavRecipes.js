@@ -56,9 +56,10 @@ function UserFavRecipes() {
     return (
         <div className="view-recipes">
             <Header />
-            <br></br>
+            <h5 className ="mb-2" style={{ backgroundColor: "#009999",fontSize : "22px", text: "bold", color:"white",paddingTop:"10px"}}>
+                <div className='ml-2'>My favorite recipes</div>
+            <hr /></h5>
             <div className="recipes-list">
-                <h4>Favorite Recipes</h4><br></br>
                 <div className="recipe-cards">
                     {recipes.map(recipe => (
                         <div className="recipe-card" key={recipe.id}>
@@ -71,15 +72,39 @@ function UserFavRecipes() {
                                 </div>
                             </div>
                             {recipe.image ? <img src={`data:image/png;base64,${recipe.image}`} width="200" height="200" alt='' /> : ''}{' '}
-                            <p><b> Ingredients  </b>{recipe.ingredients}</p>
-                            <p><b> Direction  </b>{recipe.instructions}</p>
-                            <p><b> Servings  </b>{recipe.servingSize}</p>
-                            <p><b> CookingTime  </b>{recipe.cookingTime}</p>
-                            <p><b> DifficultyLevel  </b>{recipe.difficultyLevel}</p>
-                            <p><b> Cuisines </b>{recipe.cuisines}</p>
-                            <p><b> DietaryPreferences </b>{recipe.dietaryPreferences}</p>
-                            <p><b> MealType  </b>{recipe.mealType}</p>
-                            <p><b> AdditionalNotes  </b>{recipe.additionalNotes}</p>
+                            <p><b>Ingredients</b></p>
+                            <ul style={{ textAlign: "justify", listStyleType: "disc", marginLeft: "20px", paddingLeft: "20px" }}>
+                                {recipe.ingredients && recipe.ingredients.trim().split('.').filter(ingredient => ingredient.length > 0).map((ingredient, index) => (
+                                    <li key={index}>{ingredient.trim()}{'.'}</li>
+                                ))}
+                            </ul>
+                            <hr className='mb-1' />
+                            <p><b>Direction</b></p>
+                            <ul style={{ textAlign: "justify", listStyleType: "disc", marginLeft: "20px", paddingLeft: "20px" }}>
+                                {recipe.instructions && recipe.instructions.trim().split('.').filter(instruction => instruction.length > 0).map((step, index) => (
+                                    <li key={index}>{step.trim()}{step.trim() && '.'}</li>
+                                ))}
+                            </ul>
+                            <hr className='mb-1' />
+                            <p><b>Serving Size </b> &nbsp; {recipe.servingSize}</p>
+                            <hr />
+                            <p><b>Cooking Time </b> &nbsp; {recipe.cookingTime} minutes</p>
+                            <hr className='mb-1' />
+                            <p><b>Difficulty level of cooking </b> &nbsp; {recipe.difficultyLevel}</p>
+                            <hr className='mb-1' />
+                            <p><b>Cuisines</b> &nbsp; {recipe.cuisines}</p>
+                            <hr />
+                            <p><b>Dietary Preferences</b> &nbsp; {recipe.dietaryPreferences}</p>
+                            <hr />
+                            <p><b>Meal Type</b> &nbsp; {recipe.mealType}</p>
+                            <hr />
+                            {recipe.additionalNotes &&
+                                <><p><b>Additional Notes:</b></p><ul style={{ textAlign: "justify", listStyleType: "disc", marginLeft: "20px", paddingLeft: "20px" }}>
+                                    {recipe.additionalNotes && recipe.additionalNotes.trim().split('.').filter(step => step.length > 0).map((step, index) => (
+                                        <li key={index}>{step.trim()}{step.trim() && '.'}</li>
+                                    ))}
+                                </ul><hr /></>
+                            }
                         </div>
                     ))}
                 </div>

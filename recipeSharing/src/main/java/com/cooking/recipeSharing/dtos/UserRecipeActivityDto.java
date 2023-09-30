@@ -10,15 +10,15 @@ import lombok.*;
 @NoArgsConstructor
 public class UserRecipeActivityDto {
     
-    private boolean isFavorite;
-    private int ratings;
+    private Boolean isFavorite;
+    private Integer ratings;
     private String comments;
     private Long activityId;
     private LocalDateTime createdTimeStamp;
 
     public UserRecipeActivityDto(UserRecipeActivityEntity activity){
         this.activityId = activity.getActivityId();
-        this.isFavorite = activity.isFavorite();
+        this.isFavorite = activity.getIsFavorite();
         this.ratings = activity.getRatings();
         this.comments = activity.getComments();
         this.createdTimeStamp = LocalDateTime.now();

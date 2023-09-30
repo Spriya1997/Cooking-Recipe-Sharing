@@ -49,9 +49,9 @@ function Login(props) {
 
           <Label>Password<span className="star-required">*</span></Label>
           <Input type="password" value={password} placeholder="password" onChange={(e) => setPassword(e.target.value)} required />
-          {showAlert && <div style={{ color: 'red', fontSize: 13 }}>The username and/or password you specified are not correct.</div>}
+          {showAlert && <div className='mt-2' style={{ color: 'red', fontSize: 13 }}>The username and/or password you specified are not correct.</div>}
           <br></br>
-          <input type="submit" value="Log In" id="submit" />
+          <input className = "mt-2" type="submit" value="Log In" id="submit" />
           <br></br>
           <button style={{ marginLeft: "auto", fontSize: "13px", fontWeight: "bold" }} type="button" className="btn btn-transparent float-left" onClick={toggleForgotPwd}><p style={{ color: "4d4dff" }}>Forgot Password ?</p> </button>
           <button style={{ fontSize: "13px", fontWeight: "bold" }} type="button" className="btn btn-transparent float-right" onClick={toggleSignUp}> <p style={{ color: "4d4dff" }}> SignUp</p></button>

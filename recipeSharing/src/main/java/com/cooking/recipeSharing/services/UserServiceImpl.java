@@ -214,6 +214,19 @@ public class UserServiceImpl implements UserService {
         return new UserDto(user.get());
 
     }
+    
+    @Override
+    public void validateOTP(String phoneNumber, Long otp) {
+        Optional<UserEntity> user = userRepo.findByPhoneNumber(phoneNumber);
+        String storedOtp = String.valueOf(user.get().getOtp());
+        String receivedotp = String.valueOf(otp);
+   
+        if (!storedOtp.equals(receivedotp)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    "Invalid OTP. Please check and try again.");
+        }
+
+    }
 
    
 }

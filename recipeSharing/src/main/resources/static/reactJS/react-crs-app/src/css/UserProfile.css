@@ -1,4 +1,35 @@
+/* UserProfile.css */
+
+.user-profile-container {
+  font-family: Verdana, sans-serif;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  /* text-align: center; */
+  padding: 20px;
+  max-width: 950px; /* Adjust as needed */
+  margin: 0 auto;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 30px;
+  position: relative;
+}
+
+.user-profile-heading {
+  font-size: 24px;
+  text-align: left;
+  font-weight: bold;
+  color: teal;
+  margin-bottom: 20px;
+}
+
 .avatarProfile {
-    vertical-align: middle;
-    border-radius: 50%;
-  }
+  border-radius: 50%;
+}
+
+.user-details {
+  margin-top: 10px;
+  background-color: #fff; /* White background for user details */
+}

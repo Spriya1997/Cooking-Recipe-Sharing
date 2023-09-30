@@ -6,5 +6,5 @@ public interface UserRecipeActivityService {
     UserRecipeActivityDto shouldSetFavoriteRecipe(Long userId,  Long recipeId, boolean isFavorite);
     UserRecipeActivityDto setReviews(Long userId,  Long recipeId, UserRecipeActivityDto activity);
     UserRecipeActivityDto getAllActivitiesOfUsersRecipe(Long userId,  Long recipeId);
-    UserRecipeActivityDto editUserRecipeReview(Long activityId, UserRecipeActivityDto activity);
+   // UserRecipeActivityDto editUserRecipeReview(Long activityId, UserRecipeActivityDto activity);
 }

@@ -38,7 +38,7 @@ public class UserEntity {
     @Column
     private String city;
 
-    @Column(nullable=false ) //, unique = true
+    @Column(nullable=false, unique = true)
     private String phoneNumber;
 
     @Column

@@ -50,11 +50,11 @@ function ForgotPassword(props) {
                     <Input type="text" placeholder="9999999999" size="10" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} required />
                     {showAlert && <div style={{ color: 'red', fontSize: 13 }}>Invalid Phone number..</div>}
                     <br></br>
-                    <input type="submit" value="Send OTP" />
+                    <input className = "mb-3" type="submit" value="Send OTP" />
                     {/* {showAlertforSuccess && <div style={{ color: 'green', fontSize: 13 }}>Otp sent to your registered Phone number..</div>} */}
                 </Form>
                 <footer>
-                    <button style={{ marginLeft: "auto", fontSize: "13px", fontWeight: "bold" }} type="button" className="btn btn-transparent float-left" onClick={toggleSignUp}>First time? Create an account </button>
+                    <button style={{ marginLeft: "auto", fontSize: "13px", fontWeight: "bold" }} type="button" className="mt-5 btn btn-transparent float-left" onClick={toggleSignUp}>First time? Create an account </button>
                 </footer>
             </div>
         </>

@@ -21,53 +21,34 @@ public class UserRecipeActivityServiceImpl implements UserRecipeActivityService 
     private UserRepo userRepo;
     @Autowired
     private UserRecipeActivityRepo activityRepo;
+    @Autowired
+    private NotificationServiceImpl notificationServiceImpl;
 
-    // private void verifyUserIdRecipeId(Long userId, Long recipeId){
-    // var user = userRepo.findById(userId);
-    // var recipe = recipeRepo.findById(recipeId);
-    // if(!user.isPresent() || !recipe.isPresent()){
-    // throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid userId or
-    // recipeId.");
-    // }
-    // }
+    private void verifyUserIdRecipeId(Long userId, Long recipeId){
+        var user = userRepo.findById(userId);
+        var recipe = recipeRepo.findById(recipeId);
+        if(!user.isPresent()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid userId");
+        }
+        if(!recipe.isPresent()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid recipeId");
+        }
+    }
 
     @Override
     public UserRecipeActivityDto shouldSetFavoriteRecipe(Long userId, Long recipeId, boolean isFavorite) {
-        var user = userRepo.findById(userId);
-        var recipe = recipeRepo.findById(recipeId);
-        if (!user.isPresent() || !recipe.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid userId or recipeId.");
-        }
-        var activity = activityRepo.findByUserAndRecipe(user.get(), recipe.get());
-        UserRecipeActivityEntity activityEntity = null;
-        if (activity.size() == 0) {
-            activityEntity = new UserRecipeActivityEntity(user.get(), recipe.get(), isFavorite);
-        } else {
-            activityEntity = activity.get(0);
-            activityEntity.setFavorite(isFavorite);
-        }
-        activityRepo.saveAndFlush(activityEntity);
-        return new UserRecipeActivityDto(activityEntity);
+        verifyUserIdRecipeId(userId, recipeId);
+        var activity = new UserRecipeActivityDto(isFavorite, null, null, null, null);
+        upsertUserActivity(userId, recipeId, activity);
+        return activity;
     }
-    // add or edit particular review
+
+    //insert & update reviews
     @Override
     public UserRecipeActivityDto setReviews(Long userId, Long recipeId, UserRecipeActivityDto reviews) {
-        var user = userRepo.findById(userId);
-        var recipe = recipeRepo.findById(recipeId);
-        if (!user.isPresent() || !recipe.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid userId or recipeId.");
-        }
-
-        var activity = activityRepo.findByUserAndRecipe(user.get(), recipe.get());
-        UserRecipeActivityEntity activityEntity = null;
-        if (activity.size() == 0) {
-            activityEntity = new UserRecipeActivityEntity(user.get(), recipe.get(), reviews);
-        } else {
-            activityEntity = activity.get(0);
-            activityEntity.SetActivity(reviews);
-        }
-        activityRepo.saveAndFlush(activityEntity);
-        return new UserRecipeActivityDto(activityEntity);
+        verifyUserIdRecipeId(userId, recipeId);
+        upsertUserActivity(userId, recipeId, reviews);
+        return reviews;
     }
     
     // get activity details of particular user by recipe id 
@@ -77,9 +58,9 @@ public class UserRecipeActivityServiceImpl implements UserRecipeActivityService 
         var recipe = recipeRepo.findById(recipeId);
         var activity = activityRepo.findByUserAndRecipe(user.get(),recipe.get());
 
-        if (!user.isPresent() || !recipe.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid userId or recipeId.");
-        } else if (activity.isEmpty()) {
+        verifyUserIdRecipeId(userId, recipeId);
+        
+        if (activity.isEmpty()) {
             return null;
         }
         List<UserRecipeActivityEntity> act = activity;
@@ -87,16 +68,46 @@ public class UserRecipeActivityServiceImpl implements UserRecipeActivityService 
 
     }
 
-    @Override
-    public UserRecipeActivityDto editUserRecipeReview(Long activityId, UserRecipeActivityDto reviews) {
-        var activity = activityRepo.findById(activityId);
+    // @Override
+    // public UserRecipeActivityDto editUserRecipeReview(Long activityId, UserRecipeActivityDto reviews) {
+    //     var activity = activityRepo.findById(activityId);
 
-        if (!activity.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid activity Id.");
+    //     if (!activity.isPresent()) {
+    //         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid activity Id.");
+    //     }
+    //     var activityDetails = activity.get();
+    //     activityDetails.SetActivity(reviews);
+    //     activityRepo.saveAndFlush(activityDetails);
+    //     return new UserRecipeActivityDto(activityDetails);
+    // }
+
+    private void upsertUserActivity(Long userId, Long recipeId, UserRecipeActivityDto userRecipeActivityDto)
+    {
+        var user = userRepo.findById(userId);
+        var recipe = recipeRepo.findById(recipeId);
+        verifyUserIdRecipeId(userId, recipeId);
+        
+        var activity = activityRepo.findByUserAndRecipe(user.get(), recipe.get());
+        UserRecipeActivityEntity activityEntity = null;
+        if (activity.size() == 0) {
+            activityEntity = new UserRecipeActivityEntity(user.get(), recipe.get(), userRecipeActivityDto);
+        } else {
+            activityEntity = activity.get(0);
+            if(userRecipeActivityDto.getIsFavorite() != null)
+            {
+                activityEntity.setIsFavorite(userRecipeActivityDto.getIsFavorite());
+            }
+            if(userRecipeActivityDto.getRatings() != null)
+            {
+                activityEntity.setRatings(userRecipeActivityDto.getRatings());
+            }
+            if(userRecipeActivityDto.getComments() != null)
+            {
+                activityEntity.setComments(userRecipeActivityDto.getComments());
+            }
         }
-        var activityDetails = activity.get();
-        activityDetails.SetActivity(reviews);
-        activityRepo.saveAndFlush(activityDetails);
-        return new UserRecipeActivityDto(activityDetails);
+
+        activityRepo.saveAndFlush(activityEntity);
+        notificationServiceImpl.setNotificaton(new NotificationEntity(user.get(), recipe.get(), userRecipeActivityDto));
     }
 }

@@ -26,7 +26,7 @@ class Commender extends React.Component {
     }
   
     render() {
-      if(this.props.rate !== 0 && this.state.message.length) {
+      if(this.props.rate !== null && this.props.rate !== 0 && this.state.message.length) {
         return(
           <div id="commender">
             <p className="commender_tit">

@@ -9,20 +9,15 @@ public class OtpRequestDto {
     public String from;
     
     @Value("${sinch.otp.body.prefix}")
-    public String body;
+    private String bodyPrefix;
 
     public String[] to;
 
-    private boolean otpRegistered = false;
+    public String body;
 
     public void setTo(String phoneString, long otp)
     {
-        if(otpRegistered){
-            body = body.substring(0, body.length()-6) ;
-        }
-
         to = new String[] {"1" + phoneString};
-        body = body + " " + otp;
-        otpRegistered = true;
+        body = bodyPrefix + " " + otp;
     }
 }

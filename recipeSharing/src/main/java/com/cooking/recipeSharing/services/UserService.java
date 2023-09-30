@@ -15,6 +15,7 @@ public interface UserService {
 
     void generateOTPByPhoneNumber(String phoneNumber);
     UserDto validateOtpAndPwdByPhoneNumber(String phoneNumber, Long otp, String password);
+    void validateOTP(String phoneNumber, Long otp);
 
     
 }

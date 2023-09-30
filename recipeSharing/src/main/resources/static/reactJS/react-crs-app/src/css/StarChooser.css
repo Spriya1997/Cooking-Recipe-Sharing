@@ -4,7 +4,6 @@
     display:flex;
     justify-content:center;
     align-items:center;
-    margin-top:35px;
   }
   
   #starfield > * {
@@ -38,8 +37,7 @@
     height:75px;
     width:600px;
     border-radius:2.5px;
-    background:#f7f7f7;
-    margin-top:40px;
+    margin-top:0px;
     display:block;
     margin-left:auto;
     margin-right:auto;
@@ -51,7 +49,7 @@
   }
   
   .commender_tit {
-    margin-top:2.5px;
+    margin-top:1px;
     margin-bottom:2.5px;
     font-size:1.075em;
     text-align:center;

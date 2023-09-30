@@ -4,8 +4,10 @@ import { useUser } from '../UserContext.js';
 import Header from './Header.js';
 import { useNavigate } from 'react-router-dom';
 import '../App.css';
-import {GrEdit} from 'react-icons/gr';
-import {MdDelete} from 'react-icons/md';
+import { GrEdit } from 'react-icons/gr';
+import { MdDelete } from 'react-icons/md';
+import Tooltip from 'react-bootstrap/Tooltip';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import '../css/Viewrecipe.css';
 
 function ViewRecipes() {
@@ -14,9 +16,15 @@ function ViewRecipes() {
     const navigateEditTo = (recipeId) => navigate('/editRecipe/' + recipeId);
     const baseUrl = 'http://localhost:8080/api/users/'
 
+    const renderTooltip = (text) => (
+        <Tooltip>
+            {text}
+        </Tooltip>
+    );
+
     const handleDeleteRecipe = async (recipeId) => {
         const confirmDelete = window.confirm("Are you sure you want to delete this recipe?");
-    
+
         if (confirmDelete) {
             try {
                 await axios.delete(baseUrl + '/recipes/' + recipeId);
@@ -29,7 +37,7 @@ function ViewRecipes() {
             }
         }
     };
-    
+
     const [recipes, setRecipes] = useState([]); // an array for storing recipes
     useEffect(() => {
         if (userId) {
@@ -47,37 +55,60 @@ function ViewRecipes() {
     return (
         <div className="view-recipes">
             <Header />
-            <br></br>
-            <div className="recipes-list">
-                <h4>Your Recipes</h4><br></br>
-                <div className="recipe-cards">
+            <h5 style={{ backgroundColor: "#009999", fontSize: "22px", text: "bold", color: "white", paddingTop: "10px" }}>My Recipes<hr /></h5>
+            <div className="mt-3 recipes-list">
+                <div className="mt-3 recipe-cards">
                     {recipes.map(recipe => (
                         <div className="recipe-card" key={recipe.id}>
                             <div className="recipe-card-navbar">
                                 <h3 className="recipe-title">{recipe.name}</h3>
-                                <div className='float-right' style={{fontSize : "26px"}}>
-                                <GrEdit onClick={() => navigateEditTo(recipe.id)}Edit />
-                                <MdDelete className="ml-3" onClick={() => handleDeleteRecipe(recipe.id)} />
+                                <div className='float-right' style={{ fontSize: "24px", display: "flex", alignItems: "center" }}>
+                                    <OverlayTrigger placement="bottom" overlay={renderTooltip("Edit")}>
+                                        <div style={{ marginRight: "20px" }}>
+                                            <GrEdit onClick={() => navigateEditTo(recipe.id)} />
+                                        </div>
+                                    </OverlayTrigger>
+                                    <OverlayTrigger placement="bottom" overlay={renderTooltip("Delete")}>
+                                        <div>
+                                            <MdDelete onClick={() => handleDeleteRecipe(recipe.id)} />
+                                        </div>
+                                    </OverlayTrigger>
                                 </div>
-                                {/* <div className="dropdown">
-                                    <button className="dropbtn">...</button>
-                                    <div className="dropdown-content">
-                                        <button onClick={() => navigateEditTo(recipe.id)}>Edit</button>
-                                        <button onClick={() => handleDeleteRecipe(recipe.id)}>Delete</button>
-                                    </div>
-                                </div> */}
                             </div>
-                            {recipe.image ? <img src={`data:image/png;base64,${recipe.image}`} width="200" height="200" alt = ''/>: ''}{' '}
-                            <p><b>Ingredients  </b>{recipe.ingredients}</p>
-                            <p><b> Direction  </b>{recipe.instructions}</p>
-                            <p><b> Servings  </b>{recipe.servingSize}</p>
-                            <p><b> CookingTime  </b>{recipe.cookingTime}</p>
-                            <p><b> DifficultyLevel  </b>{recipe.difficultyLevel}</p>
-                            <p><b> Cuisines </b>{recipe.cuisines}</p>
-                            <p><b> DietaryPreferences </b>{recipe.dietaryPreferences}</p>
-                            <p><b> MealType  </b>{recipe.mealType}</p>
-                            <p><b> AdditionalNotes  </b>{recipe.additionalNotes}</p>
-                            
+                            {recipe.image ? <img src={`data:image/png;base64,${recipe.image}`} width="200" height="200" alt='' /> : ''}{' '}
+                            <p><b>Ingredients</b></p>
+                            <ul style={{ textAlign: "justify", listStyleType: "disc", marginLeft: "20px", paddingLeft: "20px" }}>
+                                {recipe.ingredients && recipe.ingredients.trim().split('.').filter(ingredient => ingredient.length > 0).map((ingredient, index) => (
+                                    <li key={index}>{ingredient.trim()}{'.'}</li>
+                                ))}
+                            </ul>
+                            <hr className='mb-1' />
+                            <p><b>Direction</b></p>
+                            <ul style={{ textAlign: "justify", listStyleType: "disc", marginLeft: "20px", paddingLeft: "20px" }}>
+                                {recipe.instructions && recipe.instructions.trim().split('.').filter(instruction => instruction.length > 0).map((step, index) => (
+                                    <li key={index}>{step.trim()}{step.trim() && '.'}</li>
+                                ))}
+                            </ul>
+                            <hr className='mb-1' />
+                            <p><b>Serving Size </b> &nbsp; {recipe.servingSize}</p>
+                            <hr />
+                            <p><b>Cooking Time </b> &nbsp; {recipe.cookingTime} minutes</p>
+                            <hr className='mb-1' />
+                            <p><b>Difficulty level of cooking </b> &nbsp; {recipe.difficultyLevel}</p>
+                            <hr className='mb-1' />
+                            <p><b>Cuisines</b> &nbsp; {recipe.cuisines}</p>
+                            <hr />
+                            <p><b>Dietary Preferences</b> &nbsp; {recipe.dietaryPreferences}</p>
+                            <hr />
+                            <p><b>Meal Type</b> &nbsp; {recipe.mealType}</p>
+                            <hr />
+                            {recipe.additionalNotes &&
+                                <><p><b>Additional Notes:</b></p><ul style={{ textAlign: "justify", listStyleType: "disc", marginLeft: "20px", paddingLeft: "20px" }}>
+                                    {recipe.additionalNotes && recipe.additionalNotes.trim().split('.').filter(step => step.length > 0).map((step, index) => (
+                                        <li key={index}>{step.trim()}{step.trim() && '.'}</li>
+                                    ))}
+                                </ul></>
+                            }
                         </div>
                     ))}
                 </div>
