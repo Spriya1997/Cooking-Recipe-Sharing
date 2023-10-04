@@ -32,7 +32,6 @@ const Notification = () => {
   useEffect(() => {
     console.log(notificationsResponse);
     setNotifications(notificationsResponse.map(notification => {
-      {
         var date = new Date(notification.createdTimestamp);
         var notificationObj = {
           title: null,
@@ -52,7 +51,6 @@ const Notification = () => {
         if (notification.comments !== null) {
           notificationObj.title = notification.userFullName + ' commented on ' + notification.recipeName;
         }
-      }
       return notificationObj;
     }));
   }, [notificationsResponse]);

@@ -93,35 +93,32 @@ function RecipeDetails() {
                     </Col>
                 </Row>
                 <Row>
-                    <Col lg={6}>
+                    <Col>
                         <div className="recipe-details-elements">
                             <div>
-                            <RiHeart3Fill className="favoriteIcon115" />
-                            {recipe.userActivity && (<div className="ml-0 mr-4" style={{ fontSize: "14px", color: "black" }}>{recipe.userActivity.favoritesCount} <b>Likes</b></div>)}
+                                <RiHeart3Fill className=" ml-1 favoriteIcon115" />
+                                {recipe.userActivity && (<div className=" mr-4 mt-1" style={{ fontSize: "14px", color: "black" }}>{recipe.userActivity.favoritesCount} <b>Likes</b></div>)}
                             </div>
-
                             <AnchorLink className='recipelink' href='#reviews'>
-                                <div>
-                                    {recipe.userActivity && (<StarRating className="ml-2 mt-5" style={{ fontSize: "20px" }} initialRating={recipe.userActivity.averageRating} />)}
-                                    {recipe.userActivity && (<div style={{ fontSize: "14px", color: "black" }}>{recipe.userActivity.averageRating.toFixed(1)} <b>Ratings</b></div>)}
-                                </div>
+                                
+                                    {recipe.userActivity && (<StarRating className="ml-2 mt-4" initialRating={recipe.userActivity.averageRating} />)}
+                                    {recipe.userActivity && (<div className="ml-2 mb-1" style={{ fontSize: "14px", color: "black" }}>{recipe.userActivity.averageRating.toFixed(1)} <b>Ratings</b></div>)}
+                                
                             </AnchorLink>
-
                             <AnchorLink className='recipelink' href='#reviews'>
-                                <div>
+                                
                                     <FaComment className="ml-5 mb-1" style={{ fontSize: "24px", color: "#ca166d" }} />
-                                    {recipe.userActivity && (<div className="ml-2" style={{ fontSize: "14px", color: "black" }} >{recipe.userActivity.commentsCount} <b>Reviews</b> </div>)}
-                                </div>
+                                    {recipe.userActivity && (<div className="ml-3 mt-1" style={{ fontSize: "14px", color: "black" }} >{recipe.userActivity.commentsCount} <b>Reviews</b> </div>)}
+                                
                             </AnchorLink>
-
-                            <div className="mb-2" style={{ display: "flex", fontSize: "35px", position: 'absolute', left: 900 }}>
+                            <div style={{ display: "flex", fontSize: "35px", position: 'absolute', left: 930 }}>
                                 {shouldShowAddReview ?
                                     <OverlayTrigger placement="bottom" overlay={renderTooltip("Add reviews")}>
-                                        <div><MdOutlineReviews onClick={toggleAddReview} style={{ color: 'teal', position: "absolute" }} /></div>
+                                        <div><MdOutlineReviews onClick={toggleAddReview} style={{ color: 'teal' }} /></div>
                                     </OverlayTrigger>
                                     :
                                     <OverlayTrigger placement="bottom" overlay={renderTooltip("Edit reviews")}>
-                                        <div><MdOutlineRateReview onClick={toggleEditReview} style={{ color: 'teal', position: "absolute" }} /></div>
+                                        <div><MdOutlineRateReview onClick={toggleEditReview} style={{ color: 'teal' }} /></div>
                                     </OverlayTrigger>
                                 }
 
@@ -138,31 +135,56 @@ function RecipeDetails() {
                     <Col xs={12} md={8}>
                         <div className="mt-4 recipe-details114" style={{ lineHeight: "1.5" }}>
                             <p><b>Ingredients</b></p>
-                            <ul style={{ textAlign: "justify", listStyleType: "disc", marginLeft: "20px", paddingLeft: "20px" }}>
+                            <ul style={{ textAlign: "justify", listStyleType: "square", marginLeft: "20px", paddingLeft: "20px" }}>
                                 {recipe.ingredients && recipe.ingredients.trim().split('.').filter(ingredient => ingredient.length > 0).map((ingredient, index) => (
                                     <li key={index}>{ingredient.trim()}{'.'}</li>
                                 ))}
                             </ul>
                             <hr className='mb-1' />
                             <p><b>Direction</b></p>
-                            <ul style={{ textAlign: "justify", listStyleType: "disc", marginLeft: "20px", paddingLeft: "20px" }}>
+                            <ul style={{ textAlign: "justify", listStyleType: "square", marginLeft: "20px", paddingLeft: "20px" }}>
                                 {recipe.instructions && recipe.instructions.trim().split('.').filter(instruction => instruction.length > 0).map((step, index) => (
                                     <li key={index}>{step.trim()}{step.trim() && '.'}</li>
                                 ))}
                             </ul>
                             <hr className='mb-1' />
-                            <p><b>Serving Size </b> &nbsp; {recipe.servingSize}</p>
-                            <hr />
-                            <p><b>Cooking Time </b> &nbsp; {recipe.cookingTime} minutes</p>
-                            <hr className='mb-1' />
-                            <p><b>Difficulty level of cooking </b> &nbsp; {recipe.difficultyLevel}</p>
-                            <hr className='mb-1' />
-                            <p><b>Cuisines</b> &nbsp; {recipe.cuisines}</p>
-                            <hr />
-                            <p><b>Dietary Preferences</b> &nbsp; {recipe.dietaryPreferences}</p>
-                            <hr />
-                            <p><b>Meal Type</b> &nbsp; {recipe.mealType}</p>
-                            <hr />
+                            {recipe.servingSize && <>
+                                <p><b>Serving Size </b></p>
+                                <ul style={{ listStyleType: "square" }}>
+                                    <li>{recipe.servingSize}</li>
+                                </ul>
+                                <hr /></>}
+                            {recipe.cookingTime && <>
+                                <p><b>Cooking Time </b> </p>
+                                <ul style={{ listStyleType: "square" }}>
+                                    <li>{recipe.cookingTime} minutes</li>
+                                </ul>
+                                <hr className='mb-1' /></>}
+                            {recipe.difficultyLevel && <>
+                                <p><b>Difficulty level of cooking </b></p>
+                                <ul style={{ listStyleType: "square" }}>
+                                    <li>{recipe.difficultyLevel}</li>
+                                </ul>
+                                <hr className='mb-1' /></>}
+                            {recipe.cuisines && <>
+                                <p><b>Cuisines</b></p>
+                                <ul style={{ listStyleType: "square" }}>
+                                    <li>{recipe.cuisines}</li>
+                                </ul>
+                                <hr /></>
+                            }
+                            {recipe.dietaryPreferences && <>
+                                <p><b>Dietary Preferences</b></p>
+                                <ul style={{ listStyleType: "square" }}>
+                                    <li>{recipe.dietaryPreferences}</li>
+                                </ul>
+                                <hr /></>}
+                            {recipe.mealType && <>
+                                <p><b>Meal Type</b></p>
+                                <ul style={{ listStyleType: "square" }}>
+                                    <li>{recipe.mealType}</li>
+                                </ul>
+                                <hr /></>}
                             {recipe.additionalNotes &&
                                 <><p><b>Additional Notes:</b></p><ul style={{ textAlign: "justify", listStyleType: "disc", marginLeft: "20px", paddingLeft: "20px" }}>
                                     {recipe.additionalNotes && recipe.additionalNotes.trim().split('.').filter(step => step.length > 0).map((step, index) => (

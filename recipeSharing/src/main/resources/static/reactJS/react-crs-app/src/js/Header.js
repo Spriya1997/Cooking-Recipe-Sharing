@@ -51,7 +51,7 @@ function Header() {
                         </div>
                     </li>
                     <li className="nav-item dropdown">
-                        <div className="nav-link dropdown-toggle mt-2 mb-1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <div className="nav-link dropdown-toggle mt-1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <FaRegUser style={{ fontSize: "21px" }} />
                         </div>
                         <div className="dropdown-menu" aria-labelledby="profileDropdown">
@@ -69,7 +69,7 @@ function Header() {
                         </div>
                     </li>
                     <li className="nav-item">
-                        <Link to={"/"} className="nav-link mt-2">
+                        <Link to={"/"} className="nav-link mt-1">
                             <OverlayTrigger placement="bottom" overlay={renderTooltip("LogOut")}>
                                 <div>
                                     <MdLogout style={{ fontSize: "24px" }} />

@@ -1,14 +1,17 @@
 package com.cooking.recipeSharing.dtos;
 
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import com.cooking.recipeSharing.model.RecipeEntity;
+//import com.cooking.recipeSharing.repositories.RecipeRepo.PublicRecipeDTO;
 
 import lombok.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class RecipeDto implements Serializable {
     private Long id;
     private String name;
@@ -127,4 +130,50 @@ public class RecipeDto implements Serializable {
     //     var recipeDto = new RecipeDto(recipeEntity);
     //     recipeDto.isFavorite = isFavorite;
     // }
+
+//     public RecipeDto(PublicRecipeDTO publicRecipeDTO)
+//     {
+//         if(publicRecipeDTO.getRecipeId() != null){
+//             this.id = publicRecipeDTO.getRecipeId();
+//         } 
+//         if (publicRecipeDTO.getRecipeName() != null) {
+//             this.name = publicRecipeDTO.getRecipeName();
+//         }
+//         if(publicRecipeDTO.getRecipeImage() != null){
+//              this.image = publicRecipeDTO.getRecipeImage();
+//         }
+//         if (publicRecipeDTO.getIngredients() != null) {
+//             this.ingredients = publicRecipeDTO.getIngredients();
+//         }
+//         if (publicRecipeDTO.getInstructions() != null) {
+//             this.instructions = publicRecipeDTO.getInstructions();
+//         }
+//         if (publicRecipeDTO.getServingSize() != null) {
+//             this.servingSize = publicRecipeDTO.getServingSize();
+//         }
+//         if (publicRecipeDTO.getCookingTime() != null) {
+//             this.cookingTime = publicRecipeDTO.getCookingTime();
+//         }
+//         if (publicRecipeDTO.getDifficultyLevel() != null) {
+//             this.difficultyLevel = publicRecipeDTO.getDifficultyLevel();
+//         }
+//         if (publicRecipeDTO.getCuisines() != null) {
+//             this.cuisines = publicRecipeDTO.getCuisines();
+//         }
+//         if (publicRecipeDTO.getDietaryPreferences() != null) {
+//             this.dietaryPreferences = publicRecipeDTO.getDietaryPreferences();
+//         }
+//         if (publicRecipeDTO.getMealType() != null) {
+//             this.mealType = publicRecipeDTO.getMealType();
+//         }
+//         if (publicRecipeDTO.getRecipeNotes() != null) {
+//             this.additionalNotes = publicRecipeDTO.getRecipeNotes();
+//         }
+//         if(publicRecipeDTO.getVisibility() != null){
+//             this.visibility = publicRecipeDTO.getVisibility();
+//         }
+//         this.isFavorite = publicRecipeDTO.getIsFavorite() == null ? false : publicRecipeDTO.getIsFavorite();
+//         this.UserActivity = new UserActivity(publicRecipeDTO.getFavoritesCount(), publicRecipeDTO.getCommentsCount(), publicRecipeDTO.getAverageRatings());
+//     }
+
 }

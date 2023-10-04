@@ -23,6 +23,7 @@ public class RecipeEntity {
     private UserEntity user;
 
     @Lob
+    @Column(columnDefinition = "BLOB")//large binary objects
     private byte[] recipeImage;
 
     @Column(nullable = false)

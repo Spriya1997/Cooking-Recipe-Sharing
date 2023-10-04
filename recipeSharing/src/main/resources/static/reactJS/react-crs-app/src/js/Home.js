@@ -63,7 +63,7 @@ function Home() {
             <Header />
             <h5 style={{ backgroundColor: "#009999",fontSize : "22px", text: "bold", color:"white",paddingTop:"10px"}}> Save your favorite recipes
             <hr /></h5>
-            <h5 className ='mb-5'style={{color: "#8d8787", fontSize: "19px", fontFamily: "sans-serif"}}>Unleash your culinary creativity, Explore new recipes</h5>
+            <h5 className ='mt-4 mb-2'style={{color: "#8d8787", fontSize: "19px", fontFamily: "sans-serif"}}>Unleash your culinary creativity, Explore new recipes</h5>
             <Row className = "mt-4"style={{position : "absolute"}}>
                 {recipes.map(recipe => (
                     <Col key={recipe.id} sm={3} xs={6} className="mb-4"> {/* Use sm for small screens and xs for extra small screens */}

@@ -16,8 +16,6 @@ function AddReview(props) {
   const [ratings, setStar] = useState(0);
   const [comments, setComments] = useState('');
   const [showAlert, setShowAlert] = useState(false);
-
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [showFailureMessage, setShowFailureMessage] = useState(false);
   const baseUrl = 'http://localhost:8080/api/users/'
 
@@ -78,7 +76,7 @@ function AddReview(props) {
           <FormGroup>
             <Col sm={{ size: 5, offset: 3 }}>
               <Button color="secondary" style={{ display: 'block', width: 90, height: 40, padding: 10 }} className="btn btn-secondary float-right">Submit</Button><br></br>
-              {showSuccessMessage && <div style={{ color: 'green', fontSize: 13 }}>Reviews added successfully </div>}
+              {/* {showSuccessMessage && <div style={{ color: 'green', fontSize: 13 }}>Reviews added successfully </div>} */}
               {showFailureMessage && <div style={{ color: 'red', fontSize: 13 }}>Error in adding reviews </div>}
             </Col>
           </FormGroup>

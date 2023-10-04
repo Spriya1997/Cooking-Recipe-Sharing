@@ -71,39 +71,64 @@ function UserFavRecipes() {
                                     </OverlayTrigger>                                   
                                 </div>
                             </div>
-                            {recipe.image ? <img src={`data:image/png;base64,${recipe.image}`} width="200" height="200" alt='' /> : ''}{' '}
-                            <p><b>Ingredients</b></p>
-                            <ul style={{ textAlign: "justify", listStyleType: "disc", marginLeft: "20px", paddingLeft: "20px" }}>
+                            {recipe.image ? <img src={`data:image/png;base64,${recipe.image}`} width="350" height= "350" alt='' /> : ''}{' '}
+                            <p className='mt-3'><b>Ingredients</b></p>
+                            <ul style={{ textAlign: "justify", listStyleType: "square", marginLeft: "20px", paddingLeft: "20px" }}>
                                 {recipe.ingredients && recipe.ingredients.trim().split('.').filter(ingredient => ingredient.length > 0).map((ingredient, index) => (
                                     <li key={index}>{ingredient.trim()}{'.'}</li>
                                 ))}
                             </ul>
                             <hr className='mb-1' />
                             <p><b>Direction</b></p>
-                            <ul style={{ textAlign: "justify", listStyleType: "disc", marginLeft: "20px", paddingLeft: "20px" }}>
+                            <ul style={{ textAlign: "justify", listStyleType: "square", marginLeft: "20px", paddingLeft: "20px" }}>
                                 {recipe.instructions && recipe.instructions.trim().split('.').filter(instruction => instruction.length > 0).map((step, index) => (
                                     <li key={index}>{step.trim()}{step.trim() && '.'}</li>
                                 ))}
                             </ul>
                             <hr className='mb-1' />
-                            <p><b>Serving Size </b> &nbsp; {recipe.servingSize}</p>
-                            <hr />
-                            <p><b>Cooking Time </b> &nbsp; {recipe.cookingTime} minutes</p>
-                            <hr className='mb-1' />
-                            <p><b>Difficulty level of cooking </b> &nbsp; {recipe.difficultyLevel}</p>
-                            <hr className='mb-1' />
-                            <p><b>Cuisines</b> &nbsp; {recipe.cuisines}</p>
-                            <hr />
-                            <p><b>Dietary Preferences</b> &nbsp; {recipe.dietaryPreferences}</p>
-                            <hr />
-                            <p><b>Meal Type</b> &nbsp; {recipe.mealType}</p>
-                            <hr />
+                            {recipe.servingSize && <>
+                                <p><b>Serving Size </b></p>
+                                <ul style={{ listStyleType: "square" }}>
+                                    <li>{recipe.servingSize}</li>
+                                </ul>
+                                <hr /></>}
+                            {recipe.cookingTime && <>
+                                <p><b>Cooking Time </b> </p>
+                                <ul style={{ listStyleType: "square" }}>
+                                    <li>{recipe.cookingTime} minutes</li>
+                                </ul>
+                                <hr className='mb-1' /></>}
+                            {recipe.difficultyLevel && <>
+                                <p><b>Difficulty level of cooking </b></p>
+                                <ul style={{ listStyleType: "square" }}>
+                                    <li>{recipe.difficultyLevel}</li>
+                                </ul>
+                                <hr className='mb-1' /></>}
+                            {recipe.cuisines && <>
+                                <p><b>Cuisines</b></p>
+                                <ul style={{ listStyleType: "square" }}>
+                                    <li>{recipe.cuisines}</li>
+                                </ul>
+                                <hr /></>
+                            }
+                            {recipe.dietaryPreferences && <>
+                                <p><b>Dietary Preferences</b></p>
+                                <ul style={{ listStyleType: "square" }}>
+                                    <li>{recipe.dietaryPreferences}</li>
+                                </ul>
+                                <hr /></>}
+                            {recipe.mealType && <>
+                                <p><b>Meal Type</b></p>
+                                <ul style={{ listStyleType: "square" }}>
+                                    <li>{recipe.mealType}</li>
+                                </ul>
+                                <hr /></>}
                             {recipe.additionalNotes &&
                                 <><p><b>Additional Notes:</b></p><ul style={{ textAlign: "justify", listStyleType: "disc", marginLeft: "20px", paddingLeft: "20px" }}>
                                     {recipe.additionalNotes && recipe.additionalNotes.trim().split('.').filter(step => step.length > 0).map((step, index) => (
                                         <li key={index}>{step.trim()}{step.trim() && '.'}</li>
                                     ))}
-                                </ul><hr /></>
+                                </ul></>
                             }
                         </div>
                     ))}

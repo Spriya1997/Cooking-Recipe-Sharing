@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Form, Input, Label, FormGroup, FormText, Col, Button } from 'reactstrap';
-import { RadioButton, RadioGroup } from 'react-radio-buttons';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../UserContext.js';
 import axios from 'axios';
@@ -68,47 +67,52 @@ function AddRecipe() {
             <h4 className="mb-3 form-post-recipe-title" style={{ backgroundColor: "#009999", fontSize: "22px", text: "bold", color: "white", padding: "10px" }}>Add Recipe</h4>
             <div className="add-recipe-container">
                 <Form onSubmit={handleSubmit}>
-                    <p className="form-post-recipe-caption">Post your favorite recipes and get likesCooking is an art, and your recipe is the masterpiece. Add your culinary creation with love and share it with the world</p><br></br>
+                    <p className="form-post-recipe-caption">Post your favorite recipes and get likes. Cooking is an art, and your recipe is the masterpiece. Add your culinary creation with love and share it with the world</p><br></br>
                     <FormGroup row>
-                        <Label sm={2}> <b>Title </b></Label>
+                        <Label sm={3}> <b>Title </b></Label>
                         <Col sm={4}>
                             <Input type="text" placeholder="give your recipe a name" onChange={(e) => setRecipeName(e.target.value)} required />
                         </Col>
                     </FormGroup>
                     <FormGroup row>
-                        <Label sm={2}> <b>Add ingredients </b></Label>
+                        <Label sm={3}> <b>Add ingredients </b></Label>
                         <Col sm={5}>
                             <Input type="textarea" placeholder="mention the required ingredients" onChange={(e) => setIngredients(e.target.value)} />
                         </Col>
                     </FormGroup>
                     <FormGroup row>
-                        <Label sm={2}><b> Instruction </b> </Label>
+                        <Label sm={3}><b> Instruction </b> </Label>
                         <Col sm={5}>
                             <Input type="textarea" placeholder="give a detailed description about your recipe" onChange={(e) => setInstruction(e.target.value)} required />
                         </Col>
                     </FormGroup>
                     <FormGroup row>
-                        <Label sm={2}> <b>Servings </b></Label>
+                        <Label sm={3}> <b>Servings </b></Label>
                         <Col sm={4}>
                             <Input type="number" placeholder="enter the serving portions" onChange={(e) => setServingSize(e.target.value)} />
                             {showAlert && <div style={{ color: 'red', fontSize: 13 }}>Please mention the serving size.</div>}
                         </Col>
                     </FormGroup>
                     <FormGroup row>
-                        <Label><b>DifficultyLevel</b></Label>
-                        <input type="radio" name="difficultyLevel" value="Easy" onChange={(e) => setDifficultyLevel(e.target.value)} /><label> Easy </label>
-                        <input type="radio" name="difficultyLevel" value="Medium" onChange={(e) => setDifficultyLevel(e.target.value)} /><label> Medium </label>
-                        <input type="radio" name="difficultyLevel" value="Hard" onChange={(e) => setDifficultyLevel(e.target.value)} /> <label > Hard </label>
-                    </FormGroup>
+                    <Label sm={3}><b>Level of Cooking</b></Label>
+                        <Col sm={4}>
+                            <Input type="select" onChange={(e) => setDifficultyLevel(e.target.value)}>
+                                <option>Select</option>
+                                <option>Easy</option>
+                                <option>Medium</option>
+                                <option>Hard</option>
+                                </Input>
+                        </Col>
+                         </FormGroup>
                     <FormGroup row>
-                        <Label sm={2}><b>Cooking time (mins)</b></Label>
+                        <Label sm={3}><b>Cooking time (mins)</b></Label>
                         <Col sm={4}>
                             <Input type="number" onChange={(e) => setCookingTime(e.target.value)} />
                         </Col>
                         {showAlert && <div style={{ color: 'red', fontSize: 13 }}>Cooking time is empty.</div>}
                     </FormGroup>
                     <FormGroup row>
-                        <Label sm={2}><b>Dietary Preferences</b></Label>
+                        <Label sm={3}><b>Dietary Preferences</b></Label>
                         <Col sm={4}>
                             <Input type="select" onChange={(e) => setDietaryPreferences(e.target.value)}>
                                 <option>Select</option>
@@ -126,7 +130,7 @@ function AddRecipe() {
                         </Col>
                     </FormGroup>
                     <FormGroup row>
-                        <Label sm={2}><b>Cuisines</b></Label>
+                        <Label sm={3}><b>Cuisines</b></Label>
                         <Col sm={4}>
                             <Input type="select" name="select" onChange={(e) => setCuisines(e.target.value)}>
                                 <option>Select</option>
@@ -149,7 +153,7 @@ function AddRecipe() {
                         </Col>
                     </FormGroup>
                     <FormGroup row>
-                        <Label sm={2}><b>Meal Type</b></Label>
+                        <Label sm={3}><b>Meal Type</b></Label>
                         <Col sm={4}>
                             <Input type="select" onChange={(e) => setMealType(e.target.value)}>
                                 <option value="Appetizer">Appetizer</option>
@@ -170,7 +174,7 @@ function AddRecipe() {
                             </Input>
                         </Col>
                     </FormGroup> <FormGroup row>
-                        <Label sm={2}><b>Visibility</b></Label>
+                        <Label sm={3}><b>Visibility</b></Label>
                         <Col sm={4}>
                             <Input type="select" onChange={(e) => setVisibility(e.target.value)} required>
                                 <option>Select</option>
@@ -178,17 +182,17 @@ function AddRecipe() {
                                 <option>Private</option>
                             </Input>
                         </Col>
-                        <p>"Every recipe tells a story, and yours is waiting to be shared. Post as public and let the world taste your tale.</p>
+                        <p style={{color: "#8d8787"}}>"Every recipe tells a story, and yours is waiting to be shared. Post as public and let the world taste your tale.</p>
                     </FormGroup>
                     <FormGroup row>
-                        <Label sm={2}> <b>Additional Notes </b></Label>
+                        <Label sm={3}> <b>Additional Notes </b></Label>
                         <Col sm={5}>
                             <Input type="textarea" placeholder="tips, suggestions,.." onChange={(e) => setAdditionalNotes(e.target.value)} />
                         </Col>
                     </FormGroup>
                     <FormGroup row>
-                        <Label sm={2}><b>File</b></Label>
-                        <Col sm={3}>
+                        <Label sm={3}><b>File</b></Label>
+                        <Col sm={4}>
                             <Input type="file" name="file" accept="image/*" onChange={handleImageChange} />
                             <FormText color="muted">
                                 Add recipe image

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useUser } from '../UserContext.js';
 import { useParams } from 'react-router-dom';
-import { FormGroup, Form, Label, Col, Button } from 'reactstrap';
+import { FormGroup, Form, Label, Col, Button, Input } from 'reactstrap';
 import StarChooser from './StarChooser.js';
 import Commender from './Commender.js';
 import '../css/StarChooser.css';
@@ -79,8 +79,8 @@ console.log("ratings " + reviews.ratings + "comments : "+ reviews.comments);
         <FormGroup row>
           <Label sm={3}> <b>Comments</b></Label>
           </FormGroup>
-          <FormGroup row>
-            <textarea className = "ml-5" rows={4} cols={15} value={reviews.comments} onChange={(e) => setReviews({...reviews, comments: e.target.value})} placeholder="What did you like or dislike?" />
+          <FormGroup>
+          <textarea className = "ml-5" rows={4} cols={33}  value={reviews.comments} onChange={(e) => setReviews({...reviews, comments: e.target.value})} placeholder="What did you like or dislike?" />
         </FormGroup>
         <footer>
           <FormGroup>

@@ -26,7 +26,7 @@ const StarRating = ({ initialRating }) => {
         return (
           <span
             key={starValue}
-            style={{ fontSize: "24px" }}
+            style={{ fontSize: "20px" }}
           >
           {starIcon}{''}
           </span>

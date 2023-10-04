@@ -90,6 +90,14 @@ public class RecipeServiceImpl implements RecipeService {
         return null;
     }
 
+    // @Override
+    // public List<RecipeDto> getAllPublicPostRecipes(long userId) {
+
+    //    return recipeRepo.getPublicRecipesByUserId(userId).stream().map(
+    //         publicRecipeDTO -> { return new RecipeDto(publicRecipeDTO); }
+    //     ).collect(Collectors.toList());     
+    // }
+
     @Override
     public List<RecipeDto> getAllPublicPostRecipes(long userId) {
         var user = userRepo.findById(userId);
@@ -113,7 +121,7 @@ public class RecipeServiceImpl implements RecipeService {
 
     private UserActivity getUserActivityByRecipe(RecipeEntity recipeEntity) {
         var activities = activityRepo.findByRecipe(recipeEntity);
-        long favoritesCount = activities.stream().filter(activity -> activity.getIsFavorite()).count();
+        long favoritesCount = activities.stream().filter(activity -> activity.getIsFavorite() != null &&  activity.getIsFavorite()).count();
         long commentsCount = activities.stream().filter(activity -> activity.getComments() != null).count();
         double averageRating = activities.stream().mapToDouble(activity -> activity.getRatings() == null ? 0 : activity.getRatings()).average().orElse(0.0);
         //double averageRating = activities.stream().map(UserRecipeActivityEntity::getRatings).filter(Objects::nonNull).mapToDouble(Integer::intValue).average().orElse(0.0);
