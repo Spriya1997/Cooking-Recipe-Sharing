@@ -1,0 +1,40 @@
+
+.containerEditRecipe {
+    margin: 20px auto;
+    max-width: 1000px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+  }
+  
+  .form-titleEditRecipe {
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #343a40;
+  }
+  
+  .input {
+    color: black;
+  }
+  
+  .button {
+    margin-right: 10px;
+  }
+  
+.edit-recipe-form input[type="text"],
+.edit-recipe-form input[type="number"],
+.edit-recipe-form .custom-button {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Media query for responsiveness */
+@media (max-width: 768px) {
+    form {
+        width: 90%;
+    }
+}

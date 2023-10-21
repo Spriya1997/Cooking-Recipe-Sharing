@@ -42,7 +42,7 @@ function UserProfile() {
   }, [userId]);
 
   const handleDeleteRecipe = async () => {
-    const confirmDelete = window.confirm("Are you sure you want to delete your profile?");
+    const confirmDelete = window.confirm("Are you sure you want to delete your account?");
 
     if (confirmDelete) {
       try {
@@ -61,51 +61,51 @@ function UserProfile() {
       <div className="user-profile-container">
         <div className="user-profile-heading">
           Personal Info
-          <OverlayTrigger placement="bottom" overlay={renderTooltip("Delete Account")}>
-            <MdDelete className="ml-3 float-right" style={{ left: 0, color: "red", fontSize: "30px" }} onClick={() => handleDeleteRecipe()} />
-          </OverlayTrigger>
-
+          <div className="float-right" style={{  color: "red", fontSize: "30px" }} onClick={() => handleDeleteRecipe()}>
+            {/* <OverlayTrigger placement="bottom" overlay={renderTooltip("Delete Account")}> </OverlayTrigger> */}
+              <MdDelete />
+          </div>
         </div>
         <img src={image} width="70" height="70" alt="" className='avatarProfile' />
         <div className="user-details">
           <FormGroup row>
             <Label sm={6}>Welcome, &nbsp;&nbsp;
-              <b style={{color:"teal"}}>{userProfile.firstname} &nbsp; {userProfile.lastname}</b></Label>
+              <b style={{ color: "teal" }}>{userProfile.firstname} &nbsp; {userProfile.lastname}</b></Label>
           </FormGroup>
           <FormGroup row>
-            <Label sm={3}> <b>First Name </b></Label>
-            <Col sm={4} style={{color:"black"}}>
+            <Label sm={3}> <b style={{ color: "teal" }}>First Name </b></Label>
+            <Col sm={4} style={{ color: "black" }}>
               <Input type="text" disabled={true} defaultValue={userProfile.firstname} placeholder="add your details in edit profile page" />
             </Col>
           </FormGroup>
           <FormGroup row>
-            <Label sm={3}> <b>Last Name </b></Label>
-            <Col sm={4} style={{color:"black"}}>
+            <Label sm={3}> <b style={{ color: "teal" }}> Last Name </b></Label>
+            <Col sm={4} style={{ color: "black" }}>
               <Input type="text" disabled={true} defaultValue={userProfile.lastname} placeholder="add your details in edit profile page" />
             </Col>
           </FormGroup>
           <FormGroup row>
-            <Label sm={3} style={{color:"black"}}> <b>Country </b></Label>
-            <Col sm={4}>
+            <Label sm={3} style={{ color: "teal" }}> <b>Country </b></Label>
+            <Col sm={4} style={{ color: "black" }}> 
               <Input type="text" disabled={true} defaultValue={userProfile.country} placeholder="add your details in edit profile page" />
             </Col>
           </FormGroup>
           <FormGroup row>
-            <Label sm={3}> <b>City </b></Label>
-            <Col sm={4} style={{color:"black"}}>
-            <Input type="text" disabled={true} defaultValue={userProfile.city} placeholder="add your details in edit profile page" />
+            <Label sm={3} style={{ color: "teal" }}> <b>City </b></Label>
+            <Col sm={4} style={{ color: "black" }}>
+              <Input type="text" disabled={true} defaultValue={userProfile.city} placeholder="add your details in edit profile page" />
             </Col>
           </FormGroup>
           <FormGroup row>
-            <Label sm={3}> <b>Bio </b></Label>
-            <Col sm={4} style={{color:"black"}}>
+            <Label sm={3} style={{ color: "teal" }}> <b>Bio </b></Label>
+            <Col sm={4} style={{ color: "black" }}>
               <Input type="textarea" disabled={true} defaultValue={userProfile.bio} placeholder="add your details in edit profile page" />
             </Col>
           </FormGroup>
           <FormGroup row>
-            <Label sm={3}> <b>Phone Number  </b></Label>
-            <Col sm={4} style={{color:"black"}}>
-            <Input type="text" disabled={true} defaultValue={userProfile.phoneNumber} />
+            <Label sm={3} style={{ color: "teal" }}> <b>Phone Number  </b></Label>
+            <Col sm={4} style={{ color: "black" }}>
+              <Input type="text" disabled={true} defaultValue={userProfile.phoneNumber} />
             </Col>
           </FormGroup>
         </div>

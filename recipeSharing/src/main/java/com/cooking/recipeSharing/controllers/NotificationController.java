@@ -19,4 +19,10 @@ public class NotificationController {
         return notificationService.getNotifications(userId);
     }
 
+    @PostMapping("{notificationId}/notifySeen")
+    public void UpdateNotificationSeen(@PathVariable long notificationId)
+    {
+        notificationService.updateSeenStatus(notificationId);
+    }
+
 }

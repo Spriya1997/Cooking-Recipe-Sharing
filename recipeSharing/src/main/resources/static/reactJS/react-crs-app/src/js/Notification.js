@@ -13,7 +13,7 @@ const Notification = () => {
   const [notifications, setNotifications] = useState([]); // an array for storing notifications
   const baseUrl = "http://localhost:8080/api/users/";
 
-  useEffect(() => {
+  const updateNotifications = () => {
     console.log("userId " + userId);
     if (userId) {
       console.log(" view notification userid:" + userId);
@@ -27,6 +27,10 @@ const Notification = () => {
           console.error('Error fetching users Notification:', error);
         });
     }
+  }
+
+  useEffect(() => {
+    updateNotifications();
   }, [userId]);
 
   useEffect(() => {
@@ -36,7 +40,8 @@ const Notification = () => {
         var notificationObj = {
           title: null,
           startedTime: date.getHours() + ":" + date.getMinutes() + ", "+ date.toDateString(),
-          recipeId : notification.recipeId
+          recipeId : notification.recipeId,
+          notificationId: notification.notificationId
         }
         if (notification.isFavorite !== false) {
           notificationObj.title = notification.userFullName + ' favorited ' + notification.recipeName;
@@ -88,8 +93,8 @@ const Notification = () => {
             {notifications &&
               notifications.map((notif) => (
                
-                  <CustomNotification title={notif.title} startedTime={notif.startedTime} recipeId={notif.recipeId} />
-                
+                  <CustomNotification title={notif.title} startedTime={notif.startedTime} recipeId={notif.recipeId}
+                   notificationId={notif.notificationId} updateNotifications={updateNotifications}/>
               ))}
           </ul>
         </div>

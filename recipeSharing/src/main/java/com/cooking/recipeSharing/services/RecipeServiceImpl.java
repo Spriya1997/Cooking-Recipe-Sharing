@@ -25,8 +25,11 @@ public class RecipeServiceImpl implements RecipeService {
     @Autowired
     private UserRecipeActivityRepo activityRepo;
     @Autowired
+    private NotificationRepo notifyRepo;
+    @Autowired
     private UserRecipeActivityServiceImpl userRecipeActivityServiceImpl;
 
+    
     private void verifyUserIdRecipeId(Long userId, Long recipeId) {
         var user = userRepo.findById(userId);
         var recipe = recipeRepo.findById(recipeId);
@@ -67,15 +70,25 @@ public class RecipeServiceImpl implements RecipeService {
         UserActivity userActivity = getUserActivityByRecipe(recipe.get());
         // Fetching isFavorite
         UserRecipeActivityDto activity = userRecipeActivityServiceImpl.getAllActivitiesOfUsersRecipe(userId, recipeId);
+        boolean isFavoriteStatus = false;
+    
+        if(activity != null && activity.getIsFavorite() != null)
+        {
+            isFavoriteStatus = activity.getIsFavorite();
+        }
 
-        Boolean isFavoriteStatus = activity.getIsFavorite();
         return new RecipeDto(recipe.get(), isFavoriteStatus, userActivity);
     }
 
     @Override
     public void deleteRecipeById(Long recipeId) {
         Optional<RecipeEntity> recipeDetails = recipeRepo.findById(recipeId);
-        recipeDetails.ifPresent(recipe -> recipeRepo.delete(recipe));
+        if(recipeDetails.isPresent())
+        {
+            notifyRepo.deleteByRecipe(recipeDetails.get());
+            activityRepo.deleteByRecipe(recipeDetails.get());
+            recipeRepo.deleteById(recipeId);
+        }
     }
 
     @Override
@@ -90,40 +103,40 @@ public class RecipeServiceImpl implements RecipeService {
         return null;
     }
 
-    // @Override
-    // public List<RecipeDto> getAllPublicPostRecipes(long userId) {
-
-    //    return recipeRepo.getPublicRecipesByUserId(userId).stream().map(
-    //         publicRecipeDTO -> { return new RecipeDto(publicRecipeDTO); }
-    //     ).collect(Collectors.toList());     
-    // }
-
     @Override
     public List<RecipeDto> getAllPublicPostRecipes(long userId) {
-        var user = userRepo.findById(userId);
-        List<RecipeEntity> recipeList = recipeRepo.findByVisibility(RecipeVisibility.Public);
-        var userFavoriteRecipe = activityRepo.findByUserAndIsFavorite(user.get(), true);
-        var stream = userFavoriteRecipe.stream();
-        var map = stream.map(activityList -> activityList.getRecipe().getRecipeId());
-        var set = map.collect(Collectors.toSet());
 
-        if (!recipeList.isEmpty()) {
-            var result = recipeList.stream().map(
-                    recipeEntity -> {
-                        var isFavorite = set.contains(recipeEntity.getRecipeId());
-                        return new RecipeDto(recipeEntity, isFavorite, getUserActivityByRecipe(recipeEntity));
-                    }).collect(Collectors.toList());
-
-            return result;
-        }
-        return Collections.emptyList();
+       return recipeRepo.getPublicRecipesByUserId(userId).stream().map(
+            publicRecipeDTO -> { return new RecipeDto(publicRecipeDTO); }
+        ).collect(Collectors.toList());     
     }
+
+    // @Override
+    // public List<RecipeDto> getAllPublicPostRecipes(long userId) {
+    //     var user = userRepo.findById(userId);
+    //     List<RecipeEntity> recipeList = recipeRepo.findByVisibility(RecipeVisibility.Public);
+    //     var userFavoriteRecipe = activityRepo.findByUserAndIsFavorite(user.get(), true);
+    //     var stream = userFavoriteRecipe.stream();
+    //     var map = stream.map(activityList -> activityList.getRecipe().getRecipeId());
+    //     var set = map.collect(Collectors.toSet());
+
+    //     if (!recipeList.isEmpty()) {
+    //         var result = recipeList.stream().map(
+    //                 recipeEntity -> {
+    //                     var isFavorite = set.contains(recipeEntity.getRecipeId());
+    //                     return new RecipeDto(recipeEntity, isFavorite, getUserActivityByRecipe(recipeEntity));
+    //                 }).collect(Collectors.toList());
+
+    //         return result;
+    //     }
+    //     return Collections.emptyList();
+    // }
 
     private UserActivity getUserActivityByRecipe(RecipeEntity recipeEntity) {
         var activities = activityRepo.findByRecipe(recipeEntity);
         long favoritesCount = activities.stream().filter(activity -> activity.getIsFavorite() != null &&  activity.getIsFavorite()).count();
         long commentsCount = activities.stream().filter(activity -> activity.getComments() != null).count();
-        double averageRating = activities.stream().mapToDouble(activity -> activity.getRatings() == null ? 0 : activity.getRatings()).average().orElse(0.0);
+        double averageRating = activities.stream().filter(activity -> activity.getRatings() != null).mapToDouble(activity -> activity.getRatings()).average().orElse(0.0);
         //double averageRating = activities.stream().map(UserRecipeActivityEntity::getRatings).filter(Objects::nonNull).mapToDouble(Integer::intValue).average().orElse(0.0);
 
         return new UserActivity(favoritesCount, commentsCount, averageRating);

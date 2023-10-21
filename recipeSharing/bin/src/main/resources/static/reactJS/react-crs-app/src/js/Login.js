@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Form, Label, Input} from 'reactstrap';
-import "bootstrap/dist/css/bootstrap.min.css";
 import axios from 'axios';
 import '../css/Register.css';
 import { UserProvider } from '../UserContext.js';

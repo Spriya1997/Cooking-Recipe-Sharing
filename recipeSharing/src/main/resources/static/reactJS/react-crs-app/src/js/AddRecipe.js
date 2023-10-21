@@ -156,7 +156,6 @@ function AddRecipe() {
                         <Label sm={3}><b>Meal Type</b></Label>
                         <Col sm={4}>
                             <Input type="select" onChange={(e) => setMealType(e.target.value)}>
-                                <option value="Appetizer">Appetizer</option>
                                 <option>Appetizer</option>
                                 <option>Breakfast</option>
                                 <option>Brunch</option>

@@ -49,7 +49,7 @@ function Login(props) {
 
           <Label>Password<span className="star-required">*</span></Label>
           <Input type="password" value={password} placeholder="password" onChange={(e) => setPassword(e.target.value)} required />
-          {showAlert && <div className='mt-2' style={{ color: 'red', fontSize: 13 }}>The username and/or password you specified are not correct.</div>}
+          {showAlert && <div className='mt-2' style={{ color: 'red', fontSize: 13 }}>Incorrect password.</div>}
           <br></br>
           <input className = "mt-2" type="submit" value="Log In" id="submit" />
           <br></br>

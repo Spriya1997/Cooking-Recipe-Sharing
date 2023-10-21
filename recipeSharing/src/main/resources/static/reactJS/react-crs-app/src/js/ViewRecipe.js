@@ -27,7 +27,7 @@ function ViewRecipes() {
 
         if (confirmDelete) {
             try {
-                await axios.delete(baseUrl + '/recipes/' + recipeId);
+                await axios.delete(baseUrl + 'recipes/' + recipeId);
                 // Update the recipes state after deletion
                 setRecipes(recipes.filter(recipe => recipe.id !== recipeId));
                 alert("Recipe deleted successfully!");
@@ -55,7 +55,7 @@ function ViewRecipes() {
     return (
         <div className="view-recipes">
             <Header />
-            <h5 style={{ backgroundColor: "#009999", fontSize: "22px", text: "bold", color: "white", paddingTop: "10px" }}>My Recipes<hr /></h5>
+            <h5 style={{ backgroundColor: "#009999", fontSize: "22px", text: "bold", color: "white", paddingTop: "10px" }}><div className='ml-4'>My Recipes</div><hr /></h5>
             <div className="mt-3 recipes-list">
                 <div className="mt-3 recipe-cards">
                     {recipes.map(recipe => (

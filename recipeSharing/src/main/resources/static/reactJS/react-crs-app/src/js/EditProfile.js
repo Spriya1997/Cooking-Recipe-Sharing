@@ -4,8 +4,10 @@ import axios from 'axios';
 import { Form, Input as StdInput, Label, FormGroup, Col, Button } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
 import '../App.css';
-import Input from 'react-phone-number-input/input'
+//import Input from 'react-phone-number-input/input'
 import Header from './Header.js';
+// import Tooltip from 'react-bootstrap/Tooltip';
+// import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import '../css/EditProfile.css';
 
 function EditProfile() {
@@ -28,6 +30,12 @@ function EditProfile() {
   const [UpdatePhoneNumber, setUpdatePhoneNumber] = useState(false);
 
   const baseUrl = 'http://localhost:8080/api/users/'
+
+  // const renderTooltip = (text) => (
+  //       <Tooltip>
+  //           {text}
+  //       </Tooltip>
+  //   );
 
   // getting profile by userId
   useEffect(() => {
@@ -100,10 +108,8 @@ function EditProfile() {
     </div>
       <div className="containerEditProfile">
         <Form onSubmit={handleSubmit} className="edit-profile-form">
-        <h5 className="mt-2 mb-5 form-titleEditProfile" style={{ backgroundColor: "#009999", fontSize : "22px", text: "bold", color:"white",paddingTop:"10px"}}> 
-        <div className ="ml-2" >Update User Profile</div>
-            <hr /></h5>
-          
+        <div className="user-profile-heading">
+          Edit Profile</div><br></br>
           <FormGroup row>
             <Label sm={2} style={{ color: 'teal' }}><b>First Name</b></Label>
             <Col sm={4}>
@@ -113,59 +119,62 @@ function EditProfile() {
           <FormGroup row>
             <Label sm={2} style={{ color: 'teal' }}><b>Last Name</b></Label>
             <Col sm={4}>
-              <StdInput type="text" style={{ color: "#8d8787" }} value={editProfile.lastname} defaultValue={editProfile.lastname} onChange={(e) => setEditProfile({ ...editProfile, lastname: e.target.value })} placeholder="last name" />
+              <StdInput type="text" style={{ color: "#8d8787" }} value={editProfile.lastname} onChange={(e) => setEditProfile({ ...editProfile, lastname: e.target.value })} placeholder="last name" />
             </Col>
           </FormGroup>
           <FormGroup row>
             <Label sm={2} style={{ color: 'teal' }}><b>City</b></Label>
             <Col sm={4}>
-              <StdInput type="text" style={{ color: "#8d8787" }} value={editProfile.city} defaultValue={editProfile.city} onChange={(e) => setEditProfile({ ...editProfile, city: e.target.value })} placeholder="city" />
+              <StdInput type="text" style={{ color: "#8d8787" }} value={editProfile.city} onChange={(e) => setEditProfile({ ...editProfile, city: e.target.value })} placeholder="city" />
             </Col>
           </FormGroup>
           <FormGroup row>
             <Label sm={2} style={{ color: 'teal' }}><b>Country</b></Label>
             <Col sm={4}>
-              <StdInput type="text" style={{ color: "#8d8787" }} value={editProfile.country} defaultValue={editProfile.country} onChange={(e) => setEditProfile({ ...editProfile, country: e.target.value })} placeholder="country" />
+              <StdInput type="text" style={{ color: "#8d8787" }} value={editProfile.country} onChange={(e) => setEditProfile({ ...editProfile, country: e.target.value })} placeholder="country" />
             </Col>
           </FormGroup>
           <FormGroup row>
             <Label sm={2} style={{ color: 'teal' }}><b>Bio</b></Label>
             <Col sm={4}>
-              <StdInput type="textarea" style={{ color: "#8d8787" }} value={editProfile.bio} defaultValue={editProfile.bio} onChange={(bio) => setEditProfile({ ...editProfile, bio: bio })} placeholder="Tell little bit about yourself(interest, experience,..) " />
+              <StdInput type="textarea" style={{ color: "#8d8787" }} value={editProfile.bio} onChange={(e) => setEditProfile({ ...editProfile, bio: e.target.value })} placeholder="Tell little bit about yourself(interest, experience,..) " />
             </Col>
           </FormGroup>
           {UpdatePhoneNumber === false &&
             <FormGroup row>
               <Label sm={2} style={{ color: 'teal' }}><b>Phone Number</b></Label>
               <Col sm={4} style={{ color: '#8d8787' }}>
-                <>+1{editProfile.phoneNumber}</>
+                <div className='mt-1'>+1{editProfile.phoneNumber}</div>
               </Col>
               <Col sm={6}>
+              {/* <OverlayTrigger placement="bottom" overlay={renderTooltip("Update Phone Number")}></OverlayTrigger> */}
               <Button className="custom-button" color="secondary" onClick={sendOTP}>Send OTP</Button>
+              
               </Col>
             </FormGroup>}
           {UpdatePhoneNumber &&
             <FormGroup row>
               <Label sm={2} style={{ color: 'teal' }}><b>Phone Number</b></Label>
               <Col sm={4}>
-                <Input country="US" international withCountryCallingCode style={{ color: "#8d8787" }} 
+              <StdInput type="number" style={{ color: "#8d8787" }} value={editProfile.phoneNumber} onChange={(e) => setEditProfile({ ...editProfile, phoneNumber: e.target.value })} />
+                {/* <Input country="US" international withCountryCallingCode style={{ color: "#8d8787" }} 
                   value={editProfile.phoneNumber}
                   placeholder="New Phone Number"
                   onChange={(phoneNumber) => {
                     setEditProfile({ ...editProfile, phoneNumber: phoneNumber });
                   }}
-                  required />
+                  required /> */}
               </Col>
             </FormGroup>}
           {showOTP &&
               <FormGroup row>
-                <Label sm={2} style={{ color: 'teal' }}>Enter OTP</Label>
+                <Label sm={2} style={{ color: 'teal' }}><b>Enter OTP</b></Label>
                 <Col sm={4}>
-                  <StdInput type="number" style={{ color: "#8d8787" }} size="6" value={otp} onChange={(e) => setOtp(e.target.value)} required />
+                  <StdInput type="number" placeholder = "one time passcode"style={{ color: "#8d8787" }} size="6" value={otp} onChange={(e) => setOtp(e.target.value)} required />
                 </Col>
                 <Col sm={3}>
                   <Button color="secondary" onClick={handleOTPSubmit}> Verify</Button>
-                  {showOTPErrorAlert && <div style={{ color: 'red', fontSize: 13 }}>Invalid One time passcode or Password</div>}
+                  {showOTPErrorAlert && <div style={{ color: 'red', fontSize: 13 }}>Invalid One time passcode</div>}
                   {showOTPAlertforSuccess && <div style={{ color: 'green', fontSize: 13 }}>Verified Phone Number</div>}
                 </Col>
               </FormGroup>

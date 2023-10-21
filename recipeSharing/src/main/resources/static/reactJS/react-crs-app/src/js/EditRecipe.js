@@ -5,6 +5,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Form, Input, Label, FormGroup, FormText, Col, Button } from 'reactstrap';
 import '../App.css';
 import Header from './Header.js';
+import '../css/EditRecipe.css';
 
 function EditRecipe() {
 
@@ -31,8 +32,7 @@ function EditRecipe() {
     // getting user recipe by recipeId
     useEffect(() => {
         if (recipeId) {
-            // Make a request to fetch user profile details
-            axios.get(baseUrl + 'recipes/' + recipeId)
+            axios.get(baseUrl + userId + '/recipes/' + recipeId)
                 .then(response => {
                     setUpdatedRecipe(response.data);
                 })
@@ -64,37 +64,38 @@ function EditRecipe() {
             <div>
                 <Header />
             </div>
-            <Form onSubmit={handleSubmit}>
-                <br></br><h4 className="form-title">Edit Recipe</h4>
+            <h5 style={{ backgroundColor: "#009999", fontSize: "22px", text: "bold", color: "white", paddingTop: "10px" }}><div className='ml-4'>Edit Recipe</div><hr/></h5>
+            <div className="containerEditRecipe">
+            <Form onSubmit={handleSubmit} className="edit-recipe-form">
                 <FormGroup row>
                     <Label sm={2}> <b>Title </b></Label>
                     <Col sm={4}>
-                        <Input type="text" defaultValue={updateRecipe.name} placeholder="give your recipe a name" onChange={(e) => setUpdatedRecipe({ ...updateRecipe, name: e.target.value })} required />
+                        <Input type="text" value={updateRecipe.name} placeholder="give your recipe a name" onChange={(e) => setUpdatedRecipe({ ...updateRecipe, name: e.target.value })} required />
                     </Col>
                 </FormGroup>
                 <FormGroup row>
                     <Label sm={2}> <b>Add ingredients </b></Label>
                     <Col sm={5}>
-                        <Input type="textarea" defaultValue={updateRecipe.ingredients} placeholder="mention the required ingredients" onChange={(e) => setUpdatedRecipe({ ...updateRecipe, ingredients: e.target.value })} />
+                        <Input type="textarea" value={updateRecipe.ingredients} placeholder="mention the required ingredients" onChange={(e) => setUpdatedRecipe({ ...updateRecipe, ingredients: e.target.value })} />
                     </Col>
                 </FormGroup>
                 <FormGroup row>
                     <Label sm={2} ><b> Instruction </b> </Label>
                     <Col sm={5}>
-                        <Input type="textarea" defaultValue={updateRecipe.instructions} placeholder="give a detailed description about your recipe" onChange={(e) => setUpdatedRecipe({ ...updateRecipe, instructions: e.target.value })} required />
+                        <Input type="textarea" value={updateRecipe.instructions} placeholder="give a detailed description about your recipe" onChange={(e) => setUpdatedRecipe({ ...updateRecipe, instructions: e.target.value })} required />
                     </Col>
                 </FormGroup>
                 <FormGroup row>
                     <Label sm={2}> <b>Servings </b></Label>
                     <Col sm={4}>
-                        <Input type="number" defaultValue={updateRecipe.servingSize} placeholder="enter the serving portions" onChange={(e) => setUpdatedRecipe({ ...updateRecipe, servingSize: e.target.value })} />
+                        <Input type="number" value={updateRecipe.servingSize} placeholder="enter the serving portions" onChange={(e) => setUpdatedRecipe({ ...updateRecipe, servingSize: e.target.value })} />
                         {showAlert && <div style={{ color: 'red', fontSize: 13 }}>Please mention the serving size.</div>}
                     </Col>
                 </FormGroup>
                 <FormGroup row>
                     <Label sm={2}><b>DifficultyLevel</b></Label>
                     <Col sm={4}>
-                        <Input type="select" defaultValue={updateRecipe.difficultyLevel} onChange={(e) => setUpdatedRecipe({ ...updateRecipe, difficultyLevel: e.target.value })}  >
+                        <Input type="select" value={updateRecipe.difficultyLevel} onChange={(e) => setUpdatedRecipe({ ...updateRecipe, difficultyLevel: e.target.value })}  >
                             <option>Easy</option>
                             <option>Medium</option>
                             <option>Difficult</option>
@@ -104,14 +105,14 @@ function EditRecipe() {
                 <FormGroup row>
                     <Label sm={2}><b>Cooking time (mins)</b></Label>
                     <Col sm={4}>
-                        <Input type="number" defaultValue={updateRecipe.cookingTime} onChange={(e) => setUpdatedRecipe({ ...updateRecipe, cookingTime: e.target.value })} />
+                        <Input type="number" value={updateRecipe.cookingTime} onChange={(e) => setUpdatedRecipe({ ...updateRecipe, cookingTime: e.target.value })} />
                     </Col>
                     {showAlert && <div style={{ color: 'red', fontSize: 13 }}>Cooking time is empty.</div>}
                 </FormGroup>
                 <FormGroup row>
                     <Label sm={2}><b>Dietary Preferences</b></Label>
                     <Col sm={4}>
-                        <Input type="select" defaultValue={updateRecipe.dietaryPreferences} onChange={(e) => setUpdatedRecipe({ ...updateRecipe, dietaryPreferences: e.target.value })} >
+                        <Input type="select" value={updateRecipe.dietaryPreferences} onChange={(e) => setUpdatedRecipe({ ...updateRecipe, dietaryPreferences: e.target.value })} >
                             <option disabled>Select</option>
                             <option>Dairy-Free</option>
                             <option>Gluten-Free</option>
@@ -129,7 +130,7 @@ function EditRecipe() {
                 <FormGroup row>
                     <Label sm={2}><b>Cuisines</b></Label>
                     <Col sm={4}>
-                        <Input type="select" name="select" defaultValue={updateRecipe.cuisines} onChange={(e) => setUpdatedRecipe({ ...updateRecipe, cuisines: e.target.value })} >
+                        <Input type="select" name="select" value={updateRecipe.cuisines} onChange={(e) => setUpdatedRecipe({ ...updateRecipe, cuisines: e.target.value })} >
                             <option>Select</option>
                             <option>American</option>
                             <option>Brazilian</option>
@@ -152,9 +153,9 @@ function EditRecipe() {
                 <FormGroup row>
                     <Label sm={2}><b>Meal Type</b></Label>
                     <Col sm={4}>
-                        <Input type="select" defaultValue={updateRecipe.mealType} onChange={(e) => setUpdatedRecipe({ ...updateRecipe, mealType: e.target.value })} >
+                        <Input type="select" value={updateRecipe.mealType} onChange={(e) => setUpdatedRecipe({ ...updateRecipe, mealType: e.target.value })} >
                             <option>Select</option>
-                            <option selected>Appetizer</option>
+                            <option>Appetizer</option>
                             <option>Breakfast</option>
                             <option>Brunch</option>
                             <option>Dessert</option>
@@ -173,7 +174,7 @@ function EditRecipe() {
                 </FormGroup> <FormGroup row>
                     <Label sm={2}><b>Visibility</b></Label>
                     <Col sm={4}>
-                        <Input type="select" defaultValue={updateRecipe.visibility} onChange={(e) => setUpdatedRecipe({ ...updateRecipe, visibility: e.target.value })} required>
+                        <Input type="select" value={updateRecipe.visibility} onChange={(e) => setUpdatedRecipe({ ...updateRecipe, visibility: e.target.value })} required>
                             <option>Select</option>
                             <option>Public</option>
                             <option>Private</option>
@@ -183,12 +184,12 @@ function EditRecipe() {
                 <FormGroup row>
                     <Label sm={2}> <b>Additional Notes </b></Label>
                     <Col sm={5}>
-                        <Input type="textarea" defaultValue={updateRecipe.additionalNotes} placeholder="tips, suggestions,.." onChange={(e) => setUpdatedRecipe({ ...updateRecipe, additionalNotes: e.target.value })} />
+                        <Input type="textarea" value={updateRecipe.additionalNotes} placeholder="tips, suggestions,.." onChange={(e) => setUpdatedRecipe({ ...updateRecipe, additionalNotes: e.target.value })} />
                     </Col>
                 </FormGroup>
                 <FormGroup row>
                     <Label sm={2}><b>File</b></Label>
-                    <Col sm={3}>
+                    <Col sm={4}>
                         <Input type="file" name="file" accept="image/*" /> {/* onChange={(e) => setRecipeImage(e.target.value)} */}
                         <FormText color="muted">
                             Add recipe image
@@ -202,6 +203,7 @@ function EditRecipe() {
                     </Col>
                 </FormGroup>
             </Form>
+            </div>
         </div>
     )
 }

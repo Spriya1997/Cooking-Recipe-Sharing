@@ -9,4 +9,5 @@ import java.util.List;
 
 public interface NotificationRepo extends JpaRepository<NotificationEntity, Long> {
     List<NotificationEntity> findByNotifyUser(UserEntity notifyUser);
+    void deleteByRecipe(RecipeEntity recipeEntity);
 }

@@ -9,6 +9,7 @@ public interface UserRecipeActivityRepo extends JpaRepository<UserRecipeActivity
     List<UserRecipeActivityEntity> findByUserAndRecipe(UserEntity userEntity, RecipeEntity recipeEntity);
     List<UserRecipeActivityEntity> findByUserAndIsFavorite(UserEntity userEntity, boolean isFavorite);
     List<UserRecipeActivityEntity> findByRecipe(RecipeEntity recipe);
+    void deleteByRecipe(RecipeEntity recipeEntity);
     /*
      * select * from recipes join useractivity  where visibility = "PUBLIC"
      */

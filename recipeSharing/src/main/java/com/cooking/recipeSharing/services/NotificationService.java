@@ -7,4 +7,5 @@ import com.cooking.recipeSharing.dtos.NotificationDto;
 
 public interface NotificationService {
     List<NotificationDto> getNotifications(Long userId);
+    void updateSeenStatus(long notificationId);
 }

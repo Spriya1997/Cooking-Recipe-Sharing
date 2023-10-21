@@ -35,8 +35,8 @@ public class UserRecipeActivityEntity {
     @Column
     private Integer ratings;
 
-    @Column(name = "Comments")
-    private String comments;
+    @Column(name = "Comments", length = 1024)
+    private String comments; 
 
     private LocalDateTime updatedTimestamp;
 

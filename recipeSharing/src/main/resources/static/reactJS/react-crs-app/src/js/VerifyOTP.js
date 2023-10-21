@@ -53,20 +53,21 @@ function VerifyOtp(props) {
                 <Input type="number" size="6" value={otp} onChange={(e) => setOtp(e.target.value)} required />
 
                 <Label>Password</Label>
-                <Input type="password" value={password} placeholder="password" onChange={(e) => setPassword(e.target.value)} required />
+                <Input type="password" value={password}  onChange={(e) => setPassword(e.target.value)} required />
                 {showAlert && !validatePassword(password) && <div style={{ color: 'red', fontSize: 13 }}>Password must contain atleast one uppercase, one lowercase, one special character, one digit and be 8-14 characters long.</div>}
 
-                <Label>Confirm Password<span className="star-required">*</span></Label>
-                <Input type="password" value={confirmPassword} placeholder="Confirm password" onChange={(e) => setConfirmPassword(e.target.value)}
+                <Label>Confirm Password</Label>
+                <Input type="password" value={confirmPassword}  onChange={(e) => setConfirmPassword(e.target.value)}
                     required />
                 {showAlert && password !== confirmPassword && <div style={{ color: 'red', fontSize: 13 }}>Password and Confirm Password should be same </div>}
                 <br></br>
 
                 <footer>
-                    <input type="submit" value="Submit" />
+                    <input type="submit" value="Submit" id="submit"/>
                     {showAlert && <div style={{ color: 'red', fontSize: 13 }}>Invalid One time passcode or Password</div>}
                     {showAlertforSuccess && <div style={{ color: 'green', fontSize: 13 }}>Password updated..</div>}
                 </footer>
+                <br></br>
             </Form>
         </>
     );

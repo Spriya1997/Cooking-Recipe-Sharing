@@ -61,15 +61,15 @@ function Home() {
     return (
         <div>
             <Header />
-            <h5 style={{ backgroundColor: "#009999",fontSize : "22px", text: "bold", color:"white",paddingTop:"10px"}}> Save your favorite recipes
+            <h5 style={{ backgroundColor: "#009999",fontSize : "22px", text: "bold", color:"white",paddingTop:"10px"}}> <div className = "ml-3" >Save your favorite recipes </div>
             <hr /></h5>
-            <h5 className ='mt-4 mb-2'style={{color: "#8d8787", fontSize: "19px", fontFamily: "sans-serif"}}>Unleash your culinary creativity, Explore new recipes</h5>
+            <h5 className ='mt-4 mb-2 ml-3'style={{color: "#8d8787", fontSize: "19px", fontFamily: "sans-serif"}}>Unleash your culinary creativity, Explore new recipes</h5>
             <Row className = "mt-4"style={{position : "absolute"}}>
                 {recipes.map(recipe => (
                     <Col key={recipe.id} sm={3} xs={6} className="mb-4"> {/* Use sm for small screens and xs for extra small screens */}
                         <div className="recipe-item">
                             <div onClick={() => navigateToRecipeDetails(recipe.id)}>
-                                {recipe.image ? <img src={`data:image/png;base64,${recipe.image}`} style={{height:"280px", width:"600px"}} alt='' /> : ''}
+                                {recipe.image ? <img src={`data:image/png;base64,${recipe.image}`} style={{height:"280px", width:"500px"}} alt='' /> : ''}
                             </div>
                             <h3>{recipe.name}</h3>
                             <div className="d-flex align-items-center">

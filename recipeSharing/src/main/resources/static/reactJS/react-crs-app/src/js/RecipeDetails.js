@@ -111,7 +111,7 @@ function RecipeDetails() {
                                     {recipe.userActivity && (<div className="ml-3 mt-1" style={{ fontSize: "14px", color: "black" }} >{recipe.userActivity.commentsCount} <b>Reviews</b> </div>)}
                                 
                             </AnchorLink>
-                            <div style={{ display: "flex", fontSize: "35px", position: 'absolute', left: 930 }}>
+                            <div style={{ display: "flex", fontSize: "35px", position : "absolute", right : 10}}>
                                 {shouldShowAddReview ?
                                     <OverlayTrigger placement="bottom" overlay={renderTooltip("Add reviews")}>
                                         <div><MdOutlineReviews onClick={toggleAddReview} style={{ color: 'teal' }} /></div>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useUser } from '../UserContext.js';
 import { useParams } from 'react-router-dom';
-import { FormGroup, Form, Label, Col, Button, Input } from 'reactstrap';
+import { FormGroup, Form, Label, Col, Button } from 'reactstrap';
 import StarChooser from './StarChooser.js';
 import Commender from './Commender.js';
 import '../css/StarChooser.css';

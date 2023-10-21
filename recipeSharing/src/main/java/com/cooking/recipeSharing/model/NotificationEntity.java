@@ -27,7 +27,7 @@ public class NotificationEntity {
 
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JsonBackReference
-    @JoinColumn(name = "recipeId")
+    @JoinColumn(name = "recipe_id")
     private RecipeEntity recipe;
 
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)

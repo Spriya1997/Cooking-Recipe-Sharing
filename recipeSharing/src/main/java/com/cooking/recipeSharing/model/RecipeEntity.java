@@ -1,8 +1,12 @@
 package com.cooking.recipeSharing.model;
 
 import java.time.LocalDateTime;
+import java.util.*;
+
 import com.cooking.recipeSharing.dtos.*;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,8 +26,14 @@ public class RecipeEntity {
     @JoinColumn(name = "userId")
     private UserEntity user;
 
-    @Lob
-    @Column(columnDefinition = "BLOB")//large binary objects
+    @OneToMany(mappedBy = "recipe",cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<UserRecipeActivityEntity> userRecipeActivities = new HashSet<>();
+
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<NotificationEntity> notificationEntity = new HashSet<>();
+
     private byte[] recipeImage;
 
     @Column(nullable = false)
